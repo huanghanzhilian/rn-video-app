@@ -145,32 +145,38 @@ export default class Holder extends Component {
     super(props)
 
     this.state = {
-      noVideo:true
+      noVideo:true,//为false时 播放视频
     }
   }
-   play(){
+  play(){
     if(this.state.noVideo){
-        return(<View />)}else{
-          return(<Play />)
-        }
+      return(<View />)
+    }else{
+      return(<Play />)
+    }
   }
 
+  //子组件点击播放视频 通知父组件触发
   pressPlay(){
     this.setState({
       noVideo:false
     })
   }
   render() {
-    console.log(322)
     return (
-      <View style={{flex:1, backgroundColor:'#fff'}}>
+      <View style={{flex:1, backgroundColor:'#2b2b2b'}}>
       <StatusBar
         backgroundColor="blue"
         barStyle="light-content"
       />
+
       <Nav name="Home1" dark={false} />
+
       <ScrollableTabView 
         style={{flex:1,paddingBottom:55}}
+        locked={true}//关闭滑动切换tab
+        initialPage={0}
+        scrollWithoutAnimation={true}//关闭动画效果
         renderTabBar={() => <FacebookTabBar />}
         tabBarBackgroundColor="#212121">
           <Home press = {() => this.pressPlay()} tabLabel="home" vid = {videos} />
@@ -178,7 +184,9 @@ export default class Holder extends Component {
           <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />
           <Profile tabLabel="person" />
       </ScrollableTabView>
+
       {this.play()}
+      
       </View>
     );
   }

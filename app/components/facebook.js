@@ -43,15 +43,36 @@ const FacebookTabBar = React.createClass({
   },
 
   render() {
+    //console.log(this.props)
     return <View style={[styles.tabs, this.props.style, ]}>
       {this.props.tabs.map((tab, i) => {
         return <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
           <Icon
             name={tab}
-            size={30}
-            color={this.props.activeTab === i ? 'rgb(255,255,255)' : '#73100b'}
+            size={28}
+            color={this.props.activeTab === i ? '#e34849' : '#828282'}
             ref={(icon) => { this.tabIcons[i] = icon; }}
           />
+          {
+            tab=='home'
+            ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>首页</Text>
+            :null
+          }
+          {
+            tab=='whatshot'
+            ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>我的</Text>
+            :null
+          }
+          {
+            tab=='subscriptions'
+            ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>我的</Text>
+            :null
+          }
+          {
+            tab=='person'
+            ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>我的</Text>
+            :null
+          }
         </TouchableOpacity>;
       })}
     </View>;
@@ -65,24 +86,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom: 10,
     backgroundColor:'#212121',
-    
-    
   },
   tabs: {
     height: 55,
     flexDirection: 'row',
     paddingTop: 5,
-    borderWidth: 1,
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    backgroundColor:'#dd5057',
-    borderBottomColor: '#212121',
+    //borderWidth: 1,
+    borderTopWidth: 1,
+    //backgroundColor:'#dd5057',
+    backgroundColor:'#212121',
+    borderTopColor: '#383838',
     position:'absolute',
     left:0,
     bottom:0,
     width:width,
   },
+  icontxte:{
+    color:'#828282'
+  },
+  icontxtea:{
+    color:'#e34849'
+  }
 });
 
 export default FacebookTabBar;

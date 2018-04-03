@@ -37,6 +37,22 @@ utils.timeCycle=function(time){
   return result;
 }
 
+// 时间转换
+utils.formatDuring = function(mss) {
+  mss = mss * 1000;
+  var days = parseInt(mss / (1000 * 60 * 60 * 24));
+  var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))) > 9 ? (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))) : '0' + (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)));
+  var seconds = ((mss % (1000 * 60)) / 1000) > 9 ? (mss % (1000 * 60)) / 1000 : '0' + (mss % (1000 * 60)) / 1000;
+  if (!mss) {
+    return '0:00';
+  } else {
+    return (hours ? hours + ":" : "") + (minutes ? minutes + ":" : "") + (seconds ? seconds + "" : "");
+  }
+  //return days+"天"+hours+"小时"+minutes+"分钟"+seconds+"秒";
+  //return (days ? days + "天" : "") + (hours ? hours + "小时" : "") + (minutes ? minutes + "分钟" : "") + (seconds ? seconds + "秒" : "");
+  //return (days ? days + ":" : "") + (hours ? hours + ":" : "") + (minutes ? minutes + ":" : "") + (seconds ? seconds + "" : "");
+};
 
 
 module.exports=utils
