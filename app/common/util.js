@@ -43,7 +43,8 @@ utils.formatDuring = function(mss) {
   var days = parseInt(mss / (1000 * 60 * 60 * 24));
   var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))) > 9 ? (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60))) : '0' + (parseInt((mss % (1000 * 60 * 60)) / (1000 * 60)));
-  var seconds = ((mss % (1000 * 60)) / 1000) > 9 ? (mss % (1000 * 60)) / 1000 : '0' + (mss % (1000 * 60)) / 1000;
+  var seconds = parseInt(((mss % (1000 * 60)) / 1000) > 9 ? (mss % (1000 * 60)) / 1000 : '0' + (mss % (1000 * 60)) / 1000);
+  //console.log(seconds)
   if (!mss) {
     return '0:00';
   } else {

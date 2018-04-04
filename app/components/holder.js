@@ -158,9 +158,23 @@ export default class Holder extends Component {
 
   //子组件点击播放视频 通知父组件触发
   pressPlay(){
-    this.setState({
-      noVideo:false
-    })
+    if(!this.state.noVideo){
+      this.setState({
+        noVideo:true
+      })
+    }else{
+      // this.setState({
+      //   noVideo:false
+      // })
+    }
+    setTimeout(() => {
+      this.setState({
+        noVideo:false
+      })
+    }, 100)
+    // this.setState({
+    //   noVideo:false
+    // })
   }
   render() {
     return (

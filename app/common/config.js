@@ -16,6 +16,8 @@ module.exports={
 		//base:'http://127.0.0.1:3006/',
 		//base:'http://192.168.0.6:3006/',
 		creations:'api/mobile/common/index/videos',//首页数据列表
+		videoinfo:'api/play/video',//播放视频相关信息
+		videourl:'api/mobile/play/url',//通过id获取视频
 	},
 	
 }
