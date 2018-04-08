@@ -17,7 +17,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-import {timeCycle,formatDuring} from '../../common/util'
+import {timeCycle,formatDuring,imageUrl} from '../../common/util'
 
 var {height, width} = Dimensions.get('window');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -48,7 +48,7 @@ export default class recommendList extends Component {
       <TouchableOpacity>
         <View style={styles.item}>
           <Image 
-            source={{uri : x.cover}} 
+            source={{uri : imageUrl(x.cover)}} 
             resizeMode="stretch" 
             style={styles.thumb}
           >
@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
   container: {
     padding:8
     //flex: 1,
+  },
+
+  title:{
+    color:'#525252'
   },
 
   /*列表样式s */

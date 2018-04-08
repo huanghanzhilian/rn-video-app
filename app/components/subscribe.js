@@ -1,9 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
+/*
+* @Author: huanghanzhilian
+* @Date:   2018-04-08 12:18:19
+* @Last Modified by:   huanghanzhilian
+* @Last Modified time: 2018-04-08 17:45:08
+*/
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -34,7 +34,7 @@ var cachedResults={
   items:[],
   total:0
 }
-export default class Home extends Component {
+export default class subscribe extends Component {
   constructor(props){
     super(props)
     console.log(this.props)
@@ -328,4 +328,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-

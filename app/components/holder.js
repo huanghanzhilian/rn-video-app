@@ -13,7 +13,12 @@ import {
 } from 'react-native';
 var ScrollableTabView = require('react-native-scrollable-tab-view');//轮播组件
 
+//组件或者工具模块 就是本地项目模块
+var request=require('../common/request')
+var config=require('../common/config');
 import Home from "./home"
+import Subscribe from "./subscribe"
+
 import Profile from "./profile"
 import Subs from "./subs"
 import Trending from "./trending"
@@ -177,6 +182,7 @@ export default class Holder extends Component {
     // })
   }
   render() {
+
     return (
       <View style={{flex:1, backgroundColor:'#2b2b2b'}}>
       <StatusBar
@@ -194,9 +200,10 @@ export default class Holder extends Component {
         renderTabBar={() => <FacebookTabBar />}
         tabBarBackgroundColor="#212121">
           <Home press = {() => this.pressPlay()} tabLabel="home" vid = {videos} />
+          <Subscribe press = {() => this.pressPlay()} tabLabel="subject"  />
           <Trending tabLabel="whatshot" vid = {videos} />
           <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />
-          <Profile tabLabel="person" />
+          <Profile navigator={this.props.navigator} tabLabel="person" />
       </ScrollableTabView>
 
       {this.play()}
@@ -204,6 +211,36 @@ export default class Holder extends Component {
       </View>
     );
   }
+
+  // //获取数据
+  // _fetchData(page){
+  //   var pages=page
+  //   if(page!==0){
+  //     this.setState({
+  //       isLoadingTail:true
+  //     })
+  //   }else{
+  //     pages=1
+  //     this.setState({
+  //       isRefreshing:true,
+  //     })
+  //   }
+
+  //   request.get(config.api.base+config.api.creations)
+  //   .then((data) => {
+  //     console.log(data)
+  //     // if(data.code==0){
+        
+  //     // }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+      
+  //   });
+  // }
+
+
+
 }
 
 const styles = StyleSheet.create({

@@ -59,6 +59,11 @@ const FacebookTabBar = React.createClass({
             :null
           }
           {
+            tab=='subject'
+            ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>订阅</Text>
+            :null
+          }
+          {
             tab=='whatshot'
             ?<Text style={[styles.icontxte,this.props.activeTab !== i?null:styles.icontxtea]}>我的</Text>
             :null

@@ -3,6 +3,15 @@
 
 
 var utils={}
+
+utils.imageUrl=function(url){
+  var ishttp=url.indexOf("http:")
+  if(ishttp!=-1){
+    return url
+  }else{
+    return "http://static.samuredwonder.com/"+url
+  }
+}
 utils.timeCycle=function(time){
 	var result = '';
   var second = 1000;

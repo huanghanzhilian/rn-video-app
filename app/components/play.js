@@ -66,6 +66,9 @@ export default class PlayVid extends Component {
       recommends:[],//推荐列表
       toPlayInfo:null,//当前视频相关信息
       videoUri:'',
+
+      //全屏逻辑
+      isFullScreen:false
     }
 
     
@@ -123,7 +126,7 @@ export default class PlayVid extends Component {
     return (
       <TouchableOpacity activeOpacity={1} onPress={this._recovery.bind(this)} style={[!this.state.narrowVideo?styles.container:styles.container1]}>
         <View style={[!this.state.narrowVideo?styles.playBox:styles.playBox1]}>
-          <View style={[!this.state.narrowVideo?styles.videoBox:styles.videoBox1]}>
+          <View style={[!this.state.narrowVideo?styles.videoBox:styles.videoBox1,this.state.isFullScreen?styles.videoFullScreen:null]}>
             {
               this.state.videoUri
               ?<Video
@@ -198,7 +201,7 @@ export default class PlayVid extends Component {
               :null
             }
             {
-              //时长视图
+              //时长视图 全屏
               !this.state.narrowVideo
               ?<View style={styles.videoControllerBox}>
                 <View style={styles.videoControllerBoxl}>
@@ -207,6 +210,7 @@ export default class PlayVid extends Component {
                 <View style={styles.videoControllerBoxr}>
                   <Text style={styles.videoTotalCtl}>{formatDuring(this.state.videoTotal)}</Text>
                   <Icon2
+                    onPress={this._fullScreen.bind(this)}
                     name='fullscreen'
                     style={styles.fullscreenIcon}
                     size={24}
@@ -232,7 +236,7 @@ export default class PlayVid extends Component {
         </View> 
         {
           //视频相关信息 集合组件  <RecommendList data={this.state.recommends} />
-          !this.state.narrowVideo&&this.state.toPlayInfo&&this.state.recommends
+          !this.state.narrowVideo&&!this.state.isFullScreen&&this.state.toPlayInfo&&this.state.recommends
           ?<ScrollView contentContainerStyle={styles.contentContainer}>
             <View>
               <TopTitle data={this.state.toPlayInfo} />
@@ -392,7 +396,14 @@ export default class PlayVid extends Component {
       this.setVideo()
     }
   }
-
+  //全屏
+  _fullScreen(){
+    var isFullScreen=!this.state.isFullScreen
+    this.setState({
+      isFullScreen:isFullScreen
+    })
+    
+  }
 
   /*视频控制相关方法e */
 }
@@ -411,6 +422,7 @@ const styles = StyleSheet.create({
   playBox:{
     //flex:1,
     paddingTop:20,
+    width:width,
     borderBottomColor:'#fff',
   },
 
@@ -449,6 +461,15 @@ const styles = StyleSheet.create({
     height:80,
     backgroundColor:'rgba(0,0,0,0.9)',
     //transform: [{rotate: '0deg'}],
+  },
+  videoFullScreen:{
+    position:'absolute',
+    right:-146,
+    top:146,
+    width:height,
+    height:width,
+    backgroundColor:'rgba(0,0,0,0.9)',
+    transform: [{rotate: '90deg'}],
   },
 
   loading:{

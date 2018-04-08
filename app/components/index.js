@@ -14,6 +14,9 @@ import Splash from './splash'//电影
 import Play from './play'//播放
 import Holder from './holder'
 
+import Login from "../page/login/login"
+import Register from "../page/register/register"
+
 
 
 
@@ -46,6 +49,9 @@ export default class Index extends Component {
         <NavigationExperimental.Navigator
          style={{flex: 1}}
          initialRoute={{id: 'splash', name: 'splash'}}
+         configureScene={(route) =>{
+          return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight
+        }} 
          renderScene={this.renderScene.bind(this)}/>
       </View>
     )
@@ -77,6 +83,25 @@ export default class Index extends Component {
           navigator={navigator} />
       );
     }
+    if (routeId === 'login') {
+      return (
+        <Login
+        {...this.props} 
+        navigator={navigator} />
+      );
+    }
+    
+    if (routeId === 'register') {
+      return (
+        <Register
+        {...this.props} 
+        navigator={navigator} />
+      );
+    }
+
+
+
+
   }
 
 
