@@ -22,6 +22,9 @@ module.exports={
 		videoinfo:'api/play/video',//播放视频相关信息
 		videourl:'api/mobile/play/url',//通过id获取视频
 		gologin:'api/user/login',//登录
+		isexistser:'api/user/isexists',//判断用户是否存在
+		getVerifycode:'api/user/send/verifycode',//获取修改密码的验证码
+		setPassword:'api/user/reset/password',//重置密码
 	},
 	
 }
