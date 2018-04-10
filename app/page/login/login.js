@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 14:14:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-09 12:09:53
+* @Last Modified time: 2018-04-10 15:08:42
 */
 import React, { Component } from 'react';
 import {
@@ -19,7 +19,7 @@ import  Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/Ionicons';
 var {height, width} = Dimensions.get('window');
 var CountDownText= require('../../common/CountDownText')
-
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import Head from '../../components/header/head';
 var request=require('../../common/request')
@@ -43,7 +43,12 @@ export default class login extends Component {
       isCountdown:false,//倒计时是否在执行
     }
   }
-
+  handleUpdateChange(text) {
+        RCTDeviceEventEmitter.emit('change', text);
+  }
+  tongzhitoast(text){
+    RCTDeviceEventEmitter.emit('tongzhitoast', text);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -60,6 +65,7 @@ export default class login extends Component {
             onFocus={this._accountFocus.bind(this)}//聚焦
             onBlur={this._accountBlur.bind(this)}//失去焦点
             onChangeText={(text)=>{
+              this.handleUpdateChange(text)
               var content={}
               content.account=text
               if(text.length<4){
@@ -341,7 +347,10 @@ export default class login extends Component {
     })
     .then((data)=>{
       if(data&&data.code==0){
-        this.refs.toast.show('登录成功')
+        this.props.afterLondin(data.data)
+        this.tongzhitoast('登录成功')
+        //this.refs.toast.show('登录成功')
+        this.props.navigator.pop()
       }else{
         this.refs.toast.show(data.msg)
         this.setState({

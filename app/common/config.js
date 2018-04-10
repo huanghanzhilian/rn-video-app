@@ -12,9 +12,9 @@ module.exports={
 	api:{
 		//base:'http://192.168.0.103:1234/',
 		//base:'http://localhost:1234/',
-		base:'http://rapapi.org/mockjs/32939/',
+		//base:'http://rapapi.org/mockjs/32939/',
 		//base:'http://m.samuredwonder.com/',
-		//base:'http://localhost:3006/',
+		base:'http://localhost:3006/',
 		//base:'http://127.0.0.1:3006/',
 		//base:'http://192.168.0.6:3006/',
 		userinfo:'api/user/info',//查看用户信息

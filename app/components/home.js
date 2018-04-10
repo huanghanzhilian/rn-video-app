@@ -190,10 +190,10 @@ export default class Home extends Component {
         }
         cachedResults.items=items
         cachedResults.total=data.data.recordAmount//获取视频总数
-        console.log('数据总数'+cachedResults.total)
-        console.log('当前页'+(cachedResults.nextPage-1))
-        console.log('下一页'+cachedResults.nextPage)
-        console.log(cachedResults.items.length)
+        // console.log('数据总数'+cachedResults.total)
+        // console.log('当前页'+(cachedResults.nextPage-1))
+        // console.log('下一页'+cachedResults.nextPage)
+        // console.log(cachedResults.items.length)
         if(page!==0){
           this.setState({
             isLoadingTail:false,

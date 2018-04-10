@@ -4,10 +4,12 @@ import {
   StatusBar,
   Image,
   Text,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 import NavigationExperimental from 'react-native-deprecated-custom-components';
-
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import Toast, {DURATION} from 'react-native-easy-toast'
 
 
 import Splash from './splash'//电影
@@ -29,7 +31,8 @@ export default class Index extends Component {
     super(props)
     //设置初始状态值
     this.state={
-      
+      logined:false,//是否登录
+      user:null,//用户信息
     }
   }
 
@@ -38,9 +41,68 @@ export default class Index extends Component {
     console.log('father','开始安装')
   }
 
+  //安装过  3
+  componentDidMount(){
+    let me = this;
+    // RCTDeviceEventEmitter.addListener('change', function (text) {
+    //   console.log(text)
+    //     // me.setState({
+    //     //     text: text
+    //     // })
+    // })
+    RCTDeviceEventEmitter.addListener('tongzhitoast', function (text) {
+      me.refs.toast.show(text)
+    })
+    RCTDeviceEventEmitter.addListener('tuichu', function () {
+
+      me._logout()
+    })
+    this._asyncAppStatus()    
+  }
+  //退出登录
+  _logout(){
+    AsyncStorage.removeItem('user')
+    this.setState({
+      logined:false,
+      user:null
+    })
+  }
+  //异步读取本机存储
+  _asyncAppStatus(){
+    var that=this
+    AsyncStorage.getItem('user')
+      .then((data)=>{
+        var user
+        var newState={}
+
+        if(data){
+          //console.log(data)
+          //转成json
+          user=JSON.parse(data)
+          
+        }
+        if(user&&user.id){
+          that.setState({
+            user:user,
+            logined:true
+          })
+        }
+        // if(user&&user.accessToken){
+        //   newState.user=user
+        //   newState.logined=true
+        // }else{
+        //   newState.logined=false
+        // }
+        // this.setState(newState)
+      })
+  }
+
+
   //进入运行状态
   //进行渲染  2  在开始安装和安装了之间运行
   render() {
+    console.log('index')
+    console.log(this)
     return (
       <View style={{flex:1}}>
         <StatusBar 
@@ -53,6 +115,10 @@ export default class Index extends Component {
           return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight
         }} 
          renderScene={this.renderScene.bind(this)}/>
+        <Toast 
+          ref="toast"
+          position='center'
+        />
       </View>
     )
   }
@@ -64,6 +130,7 @@ export default class Index extends Component {
     if (routeId === 'holder') {
       return (
         <Holder
+        user={this.state.user}
         {...this.props} 
         navigator={navigator} />
         );
@@ -86,6 +153,7 @@ export default class Index extends Component {
     if (routeId === 'login') {
       return (
         <Login
+        afterLondin={this._afterLondin.bind(this)}
         {...this.props} 
         navigator={navigator} />
       );
@@ -102,6 +170,20 @@ export default class Index extends Component {
 
 
 
+  }
+
+  //登录之后存储用户信息
+  _afterLondin(user){
+    //将json转成字符串
+    user=JSON.stringify(user)
+    AsyncStorage.setItem('user',user)
+      .catch((error) => console.warn("fetch error:", error))
+      .then(()=>{
+        this.setState({
+          logined:true,
+          user:user
+        })
+      })
   }
 
 

@@ -182,7 +182,9 @@ export default class Holder extends Component {
     // })
   }
   render() {
-
+    console.log('holder主页---------')
+    console.log(this.props.user)
+    console.log('holder主页---------')
     return (
       <View style={{flex:1, backgroundColor:'#2b2b2b'}}>
       <StatusBar
@@ -203,7 +205,7 @@ export default class Holder extends Component {
           <Subscribe press = {() => this.pressPlay()} tabLabel="subject"  />
           <Trending tabLabel="whatshot" vid = {videos} />
           <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />
-          <Profile navigator={this.props.navigator} tabLabel="person" />
+          <Profile navigator={this.props.navigator} user={this.props.user} tabLabel="person" />
       </ScrollableTabView>
 
       {this.play()}
