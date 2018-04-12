@@ -25,6 +25,11 @@ module.exports={
 		isexistser:'api/user/isexists',//判断用户是否存在
 		getVerifycode:'api/user/send/verifycode',//获取修改密码的验证码
 		setPassword:'api/user/reset/password',//重置密码
+		getHistory:'api/history/list',//历史记录接口
+		getCollect:'api/like/video/list',//订过的视频
+		getCollectAlbum:'api/collection/playlist',//收藏过得专辑
+
+		getNotifications:'api/notice/new',//系统通知列表
 	},
 	
 }

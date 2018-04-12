@@ -37,7 +37,6 @@ var cachedResults={
 export default class Home extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
     this.state={
       fill:50,
       noVideo:true,
@@ -90,12 +89,12 @@ export default class Home extends Component {
   
   //开始安装  1
   componentWillMount(){
-    console.log('开始安装')
+    //console.log('开始安装')
   }
   //安装过  3
   componentDidMount(){
 
-    console.log('安装完毕11')
+    //console.log('安装完毕11')
     var page= this.state.pageNum
     this._fetchData(page)
   }
