@@ -16,6 +16,7 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
+import {timeCycle,formatDuring,imageUrl,formatDateTime} from '../common/util'
 import Islogin from "./islogin/islogin"
 
 
@@ -29,6 +30,7 @@ export default class Profile extends Component {
   }
   render() {
     var userInfo=this.props.userInfo||null
+    console.log(userInfo)
     if(this.props.userInfo){
       return (
         <View style={styles.container}>
@@ -37,7 +39,7 @@ export default class Profile extends Component {
             <View style={styles.user_info_wrap}>
               <View style={styles.user_info_item}>
                 <View style={styles.item_l}>
-                  <Text style={styles.text}>恍恍惚惚</Text>
+                  <Text style={styles.text}>{userInfo.name}</Text>
                 </View>
                 <View style={styles.item_r}>
                   <Text style={styles.text} onPress={this._logout.bind(this)}>退出</Text>
@@ -45,7 +47,7 @@ export default class Profile extends Component {
               </View>
               <View style={styles.user_info_item}>
                 <View style={styles.item_l}>
-                  <Text style={styles.text}>会员到期时间：1010</Text>
+                  <Text style={styles.text}>会员到期时间：{formatDateTime(userInfo.membershipInvalidTime)}</Text>
                 </View>
                 <View style={styles.item_r}>
                   <Text style={styles.text} onPress={this._logout.bind(this)}>续费</Text>
