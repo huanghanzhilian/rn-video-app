@@ -20,12 +20,13 @@ import {
 //组件或者工具模块 就是本地项目模块
 var request=require('../common/request')
 var config=require('../common/config');
-import {timeCycle,formatDuring,imageUrl} from '../common/util'
+
 import Play from './play'
+import ListItem from './listItem'
 
 var {height, width} = Dimensions.get('window');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 
 var cachedResults={
@@ -52,37 +53,13 @@ export default class Home extends Component {
   }
 
   eachVid(x){
+    //onPress={this.props.press}
     return(
-      <TouchableOpacity style={styles.itemBox} onPress={this.props.press}>         
-        <View style={styles.item}>
-          <Image 
-            source={{uri : imageUrl(x.cover)}} 
-            resizeMode="stretch" 
-            style={styles.thumb}
-          >
-            <Text numberOfLines={1} style={styles.duration}>{formatDuring(x.duration)}</Text>
-          </Image>
-          <View style={styles.iteminfoBox}>
-            <Image 
-              style={styles.upImg} 
-              source={{uri : imageUrl(x.user.head)}} 
-              resizeMode="contain"/>
-            <View style={styles.iteminfoCon}>
-              <Text numberOfLines={1} style={styles.upName} >
-                {x.user.name}
-              </Text>
-              <Text numberOfLines={1} style={styles.videoName} >
-                {x.name}
-              </Text>
-              <Text style={styles.describeBox}>
-                {x.watchAmount} 次观看
-                <Icon name="fiber-manual-record" style={styles.fenge} color="#777" size={6} /> 
-                {timeCycle(x.publishTime)} 
-              </Text>
-            </View>
-          </View>
-        </View>    
-      </TouchableOpacity>
+      <ListItem 
+        navigator={this.props.navigator} {...this.props}
+        key={x.id} 
+        //onSelect={()=>this._loadPage(row)} 
+        row={x} />
     )
   }
 
@@ -232,72 +209,7 @@ const styles = StyleSheet.create({
     //backgroundColor:'#212121'
   },
 
-  itemBox:{
-    //backgroundColor:'#000',
-  },
-  item:{
-    //height:300,
-    width:width,
-    backgroundColor:'#212121',
-    borderBottomWidth:1,
-    borderColor:'#383838'
-  },
-  thumb:{
-    width:350,
-    alignSelf:'center',
-    height:width*0.5625,
-    margin:15,
-    marginBottom:0
-  },
-  duration:{
-    position:'absolute',
-    bottom:8,
-    right:8,
-    //width:46,
-    height:17,
-    paddingRight:8,
-    paddingLeft:8,
-    backgroundColor:'rgba(0,0,0,.6)',
-    color:'#fff'
-  },
-  iteminfoBox:{
-    padding:15, 
-    height:80, 
-    alignItems:'center', 
-    width:350, 
-    flexDirection:'row'
-  },
-  upImg:{
-    height:40,
-    width:40, 
-    borderRadius:20
-  },
-  iteminfoCon:{
-    margin:2, 
-    marginLeft:10
-  },
-  upName:{
-    color:'#868486', 
-    margin:2, 
-    fontSize:13, 
-    width:260,
-  },
-  videoName:{
-    color:'#c8c6c9', 
-    margin:2, 
-    fontSize:15, 
-    width:260,
-    marginTop:2,
-    marginBottom:2
-  },
-  describeBox:{color:'#666', 
-    margin:2, 
-    marginTop:0, 
-    fontSize:12
-  },
-  fenge:{
-    margin:3
-  },
+  
 
 
 
@@ -316,15 +228,5 @@ const styles = StyleSheet.create({
   /*加载交互e*/
 
 
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 

@@ -30,6 +30,11 @@ module.exports={
 		getCollectAlbum:'api/collection/playlist',//收藏过得专辑
 
 		getNotifications:'api/notice/new',//系统通知列表
+
+		getUpuserinfo:'api/channel/info',//专辑主播信息
+		getChannelvideos:'api/channel/videos',//专辑主播信息-视频
+		getChannelalbums:'api/channel/albums',//专辑主播信息-专辑
+		setSwitch:'api/subscription/switch',//订阅主播频道
 	},
 	
 }

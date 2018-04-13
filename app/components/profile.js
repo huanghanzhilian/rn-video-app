@@ -30,7 +30,6 @@ export default class Profile extends Component {
   }
   render() {
     var userInfo=this.props.userInfo||null
-    console.log(userInfo)
     if(this.props.userInfo){
       return (
         <View style={styles.container}>

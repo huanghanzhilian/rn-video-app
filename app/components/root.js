@@ -26,6 +26,8 @@ import Collect from "../page/collect/collect"
 import CollectAlbum from "../page/collectAlbum/collectAlbum"//专辑页
 import Notifications from "../page/notifications/notifications"//系统通知页
 
+import DetailTv from "../page/detailTv/detailTv"//频道页
+
 
 
 
@@ -171,6 +173,15 @@ class Root extends Component{
         navigator={navigator} />
       );
     }
+    if (routeId === 'detailTv') {
+      return (
+        <DetailTv
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+    
 
 
   }

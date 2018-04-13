@@ -198,7 +198,7 @@ export default class Holder extends Component {
         scrollWithoutAnimation={true}//关闭动画效果
         renderTabBar={() => <FacebookTabBar />}
         tabBarBackgroundColor="#212121">
-          <Home press = {() => this.pressPlay()} tabLabel="home" vid = {videos} />
+          <Home press = {() => this.pressPlay()} navigator={this.props.navigator} {...this.props} tabLabel="home" vid = {videos} />
           <Subscribe press = {() => this.pressPlay()} tabLabel="subject"  />
           <Trending tabLabel="whatshot" vid = {videos} />
           <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />

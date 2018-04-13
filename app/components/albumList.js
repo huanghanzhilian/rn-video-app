@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 14:20:42
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-12 18:07:20
+* @Last Modified time: 2018-04-13 15:20:50
 */
 import React, { Component } from 'react';
 import {
@@ -107,9 +107,14 @@ export default class albumList extends Component {
 
           <View style={styles.iteminfoBox}>
             <View style={styles.iteminfoCon}>
-              <Text numberOfLines={1} style={styles.upName} >
-                {x.user.name}
-              </Text>
+              {
+                x.user
+                ?<Text numberOfLines={1} style={styles.upName} >
+                  {x.user.name}
+                </Text>
+                :null
+              }
+                
               <Text numberOfLines={1} style={styles.videoName} >
                 {x.playlistName}
               </Text>
@@ -160,20 +165,24 @@ export default class albumList extends Component {
 
   //获取数据
   _fetchData(page){
+    var _id=this.props._id||''
     var api=this.props.api
     this.setState({
       isLoadingTail:true
     })
-
-    request.get(config.api.base+config.api[api],{
+    var body={
       pageSize:cachedResults.pageSize,
       pageNum:page
-    })
+    }
+    if(_id){
+      body.userId=_id
+    }
+    request.get(config.api.base+config.api[api],body)
     .then((data) => {
       //console.log(data)
       if(data.code==0){
         var items=cachedResults.items.slice()
-        console.log(items)
+        //console.log(items)
         items=[...items,...data.data.row]
         cachedResults.nextPage+=1
         cachedResults.items=items
