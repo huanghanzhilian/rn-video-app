@@ -13,12 +13,13 @@ module.exports={
 		//base:'http://192.168.0.103:1234/',
 		//base:'http://localhost:1234/',
 		//base:'http://rapapi.org/mockjs/32939/',
-		//base:'http://m.samuredwonder.com/',
-		base:'http://localhost:3006/',
+		base:'http://m.samuredwonder.com/',
+		//base:'http://localhost:3006/',
 		//base:'http://127.0.0.1:3006/',
-		//base:'http://192.168.0.6:3006/',
+		//base:'http://192.168.31.39:3006/',
 		userinfo:'api/user/info',//查看用户信息
 		creations:'api/mobile/common/index/videos',//首页数据列表
+		getSubscription:'api/mobile/subscription/video/list',//订阅数据列表
 		videoinfo:'api/play/video',//播放视频相关信息
 		videourl:'api/mobile/play/url',//通过id获取视频
 		gologin:'api/user/login',//登录
@@ -35,6 +36,8 @@ module.exports={
 		getChannelvideos:'api/channel/videos',//专辑主播信息-视频
 		getChannelalbums:'api/channel/albums',//专辑主播信息-专辑
 		setSwitch:'api/subscription/switch',//订阅主播频道
+
+		getSearch:'api/search/all',//搜索接口
 	},
 	
 }

@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 10:58:39
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-13 15:15:46
+* @Last Modified time: 2018-04-16 13:53:52
 */
 import React, { Component } from 'react';
 import {
@@ -29,9 +29,20 @@ export default class listItem extends Component {
   }
 
   render() {
+    var ongetVideoInfo=this.props.ongetVideoInfo
+    //console.log(ongetVideoInfo)
+    //onPress={ongetVideoInfo({open:true,id:this.state._id})}
   	var row=this.state.row
     return (
-      <TouchableOpacity style={styles.itemBox} >         
+      <TouchableOpacity style={styles.itemBox} 
+        onPress={()=>{
+            //ongetVideoInfo({open:false,id:0})}
+            ongetVideoInfo({open:false,id:0})
+            setTimeout(() => {
+              ongetVideoInfo({open:true,id:row.id})
+            }, 100)
+          }
+        }>         
         <View style={styles.item}>
           <Image 
             source={{uri : imageUrl(row.cover)}} 

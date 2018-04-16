@@ -2,7 +2,7 @@
 * @Author: macintoshhd
 * @Date:   2018-04-11 23:34:31
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-12 11:50:35
+* @Last Modified time: 2018-04-16 13:10:50
 */
 export const addTodo = (num) => {  
   return {  
@@ -30,5 +30,13 @@ export const setUserInfo = (userInfo) => {
   return {  
     type: 'SET_USER',  
     userInfo: userInfo,  
+  }  
+} 
+
+//播放信息
+export const getVideoInfo = (videoInfo) => {  
+  return {  
+    type: 'GO_VIDEO',  
+    videoInfo: videoInfo,  
   }  
 } 

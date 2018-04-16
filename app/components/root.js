@@ -13,7 +13,8 @@ import Toast, {DURATION} from 'react-native-easy-toast'
 
 
 import { connect } from 'react-redux';
-import { addTodo,updateText,decTodo,setUserInfo} from '../redux/action';
+import { addTodo,updateText,decTodo,setUserInfo,getVideoInfo} from '../redux/action';
+
 
 import Splash from './splash'//电影
 import Play from './play'//播放
@@ -27,6 +28,7 @@ import CollectAlbum from "../page/collectAlbum/collectAlbum"//专辑页
 import Notifications from "../page/notifications/notifications"//系统通知页
 
 import DetailTv from "../page/detailTv/detailTv"//频道页
+import Search from "../page/search/search"//搜页
 
 
 
@@ -41,6 +43,8 @@ class Root extends Component{
     this.state={
       logined:false,//是否登录
       user:null,//用户信息
+
+      noVideo:true,//为false时 播放视频
     }
   }
 
@@ -68,19 +72,41 @@ class Root extends Component{
     this._asyncAppStatus()//异步读取本机存储
   }
 
+  play(){
+    if(!this.props.videoInfo.open){
+      return(<View />)
+    }else{
+      return(<Play {...this.props.videoInfo} {...this.props} navigator={this.refs.toastaa}/>)
+    }
+  }
+  //子组件点击播放视频 通知父组件触发
+  pressPlay(){
+    if(!this.state.noVideo){
+      this.setState({
+        noVideo:true
+      })
+    }else{
+      // this.setState({
+      //   noVideo:false
+      // })
+    }
+    setTimeout(() => {
+      this.setState({
+        noVideo:false
+      })
+    }, 100)
 
-
-  //进入运行状态
-  //进行渲染  2  在开始安装和安装了之间运行
+  }
   render() {
     // console.log('index')
-    // console.log(this)
+    console.log(this)
     return (
       <View style={{flex:1,backgroundColor:'#212121'}}>
         <StatusBar 
          barStyle="light-content"
         />
         <NavigationExperimental.Navigator
+          ref="toastaa"
          style={{flex: 1}}
          initialRoute={{id: 'splash', name: 'splash'}}
          configureScene={(route) =>{
@@ -91,9 +117,8 @@ class Root extends Component{
           ref="toast"
           position='center'
         />
-        <View>
-          <Text>1</Text>
-        </View>
+        
+        {this.play()}
       </View>
     )
   }
@@ -181,6 +206,17 @@ class Root extends Component{
         navigator={navigator} />
       );
     }
+
+    if (routeId === 'search') {
+      return (
+        <Search
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+
+    
     
 
 
@@ -244,7 +280,8 @@ const mapStateToProps = (state) => {
     return {
         num: state.num ,  
         text:state.text ,
-        userInfo:state.userInfo
+        userInfo:state.userInfo,
+        videoInfo:state.videoInfo
     }
 };
 
@@ -255,6 +292,7 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateText: (text) => dispatch(updateText(text)),
         onDecTodo: (num) => dispatch(decTodo(num)),
         onSetUserInfo: (userInfo) => dispatch(setUserInfo(userInfo)),
+        ongetVideoInfo: (obj) => dispatch(getVideoInfo(obj)),
         //onChangeText: () => dispatch(changeText('外部传值111')),
     }
 };

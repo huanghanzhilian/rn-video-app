@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 18:12:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-13 10:27:00
+* @Last Modified time: 2018-04-16 18:27:48
 */
 import React, { Component } from 'react';
 import {
@@ -13,7 +13,8 @@ import {
   Dimensions,
   ListView,
   ActivityIndicator,
-  Modal
+  Modal,
+  InteractionManager
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
@@ -38,6 +39,7 @@ export default class notifications extends Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     super(props)
     this.state={
+      renderPlaceholderOnly:true,
       dataSource:ds.cloneWithRows([]),
 
       //加载交互
@@ -58,8 +60,12 @@ export default class notifications extends Component {
   }
   //安装过  3
   componentDidMount(){
-    var page= 1
-    this._fetchData(page)
+    InteractionManager.runAfterInteractions(()=>{  
+      this.setState({renderPlaceholderOnly: false});
+      var page= 1
+      this._fetchData(page)
+    });
+      
   }
 
   componentWillUnmount(){
@@ -75,7 +81,21 @@ export default class notifications extends Component {
     //console.log('卸载')
   }
 
+  _renderPlaceholderView() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.loadingF}>
+          <Text style={styles.loadingFMore}>Loading...</Text>
+        </View>
+      </View>
+    )
+  }
+
+
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
     return (
       <View style={styles.container}>
       	<Head title='系统通知' navigator={this.props.navigator} />
@@ -331,4 +351,18 @@ const styles = StyleSheet.create({
     width:width
   },
   /*加载交互e*/
+  /*父加载交互s*/
+  loadingF:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingFMore:{
+    color:'#777',
+    textAlign:'center'
+    //marginVertical:20
+  },
+  
+  /*父加载交互e*/
 });

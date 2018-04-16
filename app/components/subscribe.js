@@ -1,9 +1,9 @@
-/*
-* @Author: huanghanzhilian
-* @Date:   2018-04-08 12:18:19
-* @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-08 17:45:08
-*/
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -20,12 +20,14 @@ import {
 //组件或者工具模块 就是本地项目模块
 var request=require('../common/request')
 var config=require('../common/config');
-import {timeCycle,formatDuring,imageUrl} from '../common/util'
+
+import Islogin from "./islogin/islogin"
 import Play from './play'
+import ListItem from './listItem'
 
 var {height, width} = Dimensions.get('window');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 
 var cachedResults={
@@ -34,10 +36,9 @@ var cachedResults={
   items:[],
   total:0
 }
-export default class subscribe extends Component {
+export default class Subscribe extends Component {
   constructor(props){
     super(props)
-    console.log(this.props)
     this.state={
       fill:50,
       noVideo:true,
@@ -53,76 +54,60 @@ export default class subscribe extends Component {
   }
 
   eachVid(x){
+    //onPress={this.props.press}
     return(
-      <TouchableOpacity style={styles.itemBox} onPress={this.props.press}>         
-        <View style={styles.item}>
-          <Image 
-            source={{uri : imageUrl(x.cover)}} 
-            resizeMode="stretch" 
-            style={styles.thumb}
-          >
-            <Text numberOfLines={1} style={styles.duration}>{formatDuring(x.duration)}</Text>
-          </Image>
-          <View style={styles.iteminfoBox}>
-            <Image 
-              style={styles.upImg} 
-              source={{uri : imageUrl(x.user.head)}} 
-              resizeMode="contain"/>
-            <View style={styles.iteminfoCon}>
-              <Text numberOfLines={1} style={styles.upName} >
-                {x.user.name}
-              </Text>
-              <Text numberOfLines={1} style={styles.videoName} >
-                {x.name}
-              </Text>
-              <Text style={styles.describeBox}>
-                {x.watchAmount} 次观看
-                <Icon name="fiber-manual-record" style={styles.fenge} color="#777" size={6} /> 
-                {timeCycle(x.publishTime)} 
-              </Text>
-            </View>
-          </View>
-        </View>    
-      </TouchableOpacity>
+      <ListItem 
+        navigator={this.props.navigator} {...this.props}
+        key={x.id} 
+        //onSelect={()=>this._loadPage(row)} 
+        row={x} />
     )
   }
 
   
   //开始安装  1
   componentWillMount(){
-    console.log('开始安装')
+    //console.log('开始安装')
   }
   //安装过  3
   componentDidMount(){
 
-    console.log('安装完毕11')
+    //console.log('安装完毕11')
     var page= this.state.pageNum
     this._fetchData(page)
   }
   render() {
+    if(this.props.userInfo){
+      return (
+        <View style={{flex:1}}>
+          <ListView
+            enableEmptySections={true}
+            automaticallyAdjustContentInsets={false}
+            showsVerticalScrollIndicator={false}
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => this.eachVid(rowData)}
+            renderFooter={this._renderFooter.bind(this)}//页头与页脚会在每次渲染过程中都重新渲染
+            onEndReached={this._fechMoreData.bind(this)}//滑动到底部事件
+            onEndReachedThreshold={20}//滑动到底部事件 距离底部20触发
+            refreshControl={//下拉刷新
+              <RefreshControl
+                refreshing={this.state.isRefreshing}//在视图开始刷新时调用
+                onRefresh={this._onRefresh.bind(this)}//刷新
+                tintColor="#ff6600"
+                title="加载中..."
+              />
+            }
+            style={{marginTop:5}}
+          />
+        </View>
+      )
+    }
     return (
-      <View style={{flex:1}}>
-        <ListView
-          enableEmptySections={true}
-          automaticallyAdjustContentInsets={false}
-          showsVerticalScrollIndicator={false}
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => this.eachVid(rowData)}
-          renderFooter={this._renderFooter.bind(this)}//页头与页脚会在每次渲染过程中都重新渲染
-          onEndReached={this._fechMoreData.bind(this)}//滑动到底部事件
-          onEndReachedThreshold={20}//滑动到底部事件 距离底部20触发
-          refreshControl={//下拉刷新
-            <RefreshControl
-              refreshing={this.state.isRefreshing}//在视图开始刷新时调用
-              onRefresh={this._onRefresh.bind(this)}//刷新
-              tintColor="#ff6600"
-              title="加载中..."
-            />
-          }
-          style={{marginTop:5}}
-        />
+      <View style={styles.container}>
+        <Islogin navigator={this.props.navigator} />
       </View>
     );
+      
   }
 
   //是否没有更多新数据了 返回true为还有数据
@@ -173,7 +158,7 @@ export default class subscribe extends Component {
       })
     }
 
-    request.get(config.api.base+config.api.creations,{
+    request.get(config.api.base+config.api.getSubscription,{
       pageSize:cachedResults.pageSize,
       pageNum:page
     })
@@ -190,10 +175,10 @@ export default class subscribe extends Component {
         }
         cachedResults.items=items
         cachedResults.total=data.data.recordAmount//获取视频总数
-        console.log('数据总数'+cachedResults.total)
-        console.log('当前页'+(cachedResults.nextPage-1))
-        console.log('下一页'+cachedResults.nextPage)
-        console.log(cachedResults.items.length)
+        // console.log('数据总数'+cachedResults.total)
+        // console.log('当前页'+(cachedResults.nextPage-1))
+        // console.log('下一页'+cachedResults.nextPage)
+        // console.log(cachedResults.items.length)
         if(page!==0){
           this.setState({
             isLoadingTail:false,
@@ -233,72 +218,7 @@ const styles = StyleSheet.create({
     //backgroundColor:'#212121'
   },
 
-  itemBox:{
-    //backgroundColor:'#000',
-  },
-  item:{
-    //height:300,
-    width:width,
-    backgroundColor:'#212121',
-    borderBottomWidth:1,
-    borderColor:'#383838'
-  },
-  thumb:{
-    width:350,
-    alignSelf:'center',
-    height:width*0.5625,
-    margin:15,
-    marginBottom:0
-  },
-  duration:{
-    position:'absolute',
-    bottom:8,
-    right:8,
-    //width:46,
-    height:17,
-    paddingRight:8,
-    paddingLeft:8,
-    backgroundColor:'rgba(0,0,0,.6)',
-    color:'#fff'
-  },
-  iteminfoBox:{
-    padding:15, 
-    height:80, 
-    alignItems:'center', 
-    width:350, 
-    flexDirection:'row'
-  },
-  upImg:{
-    height:40,
-    width:40, 
-    borderRadius:20
-  },
-  iteminfoCon:{
-    margin:2, 
-    marginLeft:10
-  },
-  upName:{
-    color:'#868486', 
-    margin:2, 
-    fontSize:13, 
-    width:260,
-  },
-  videoName:{
-    color:'#c8c6c9', 
-    margin:2, 
-    fontSize:15, 
-    width:260,
-    marginTop:2,
-    marginBottom:2
-  },
-  describeBox:{color:'#666', 
-    margin:2, 
-    marginTop:0, 
-    fontSize:12
-  },
-  fenge:{
-    margin:3
-  },
+  
 
 
 
@@ -317,14 +237,5 @@ const styles = StyleSheet.create({
   /*加载交互e*/
 
 
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
+

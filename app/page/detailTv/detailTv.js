@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 11:20:00
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-13 15:46:09
+* @Last Modified time: 2018-04-16 18:21:17
 */
 import React, { Component } from 'react';
 import {
@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  AlertIOS
+  AlertIOS,
+  InteractionManager
 } from 'react-native';
 
 var ScrollableTabView = require('react-native-scrollable-tab-view');//轮播组件
@@ -30,7 +31,8 @@ export default class detailTv extends Component {
   constructor(props){
     super(props)
     this.state={
-      upInfo:null
+      upInfo:null,
+      renderPlaceholderOnly:true
     }
   }
   //开始安装  1
@@ -38,10 +40,27 @@ export default class detailTv extends Component {
   }
   //安装过  3
   componentDidMount(){
-    var id=this.props._id
-    this._fetchData(id)
+    InteractionManager.runAfterInteractions(()=>{  
+      
+      var id=this.props._id
+      this._fetchData(id)
+      this.setState({renderPlaceholderOnly: false});
+    });
+    
+  }
+  _renderPlaceholderView() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.loadingF}>
+          <Text style={styles.loadingFMore}>Loading...</Text>
+        </View>
+      </View>
+    )
   }
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
   	var id=this.props._id
     return (
       <View style={styles.container}>
@@ -118,6 +137,22 @@ const styles = StyleSheet.create({
 		fontSize:14,
 		color:'#525252'
 	},
+
+
+  /*父加载交互s*/
+  loadingF:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingFMore:{
+    color:'#777',
+    textAlign:'center'
+    //marginVertical:20
+  },
+  
+  /*父加载交互e*/
 
   
 });

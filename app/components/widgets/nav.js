@@ -16,39 +16,62 @@ import Iconz from 'react-native-vector-icons/MaterialIcons';
 
 
 export default class Subs extends Component {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      
+    }
+  }
   render() {
+    //console.log(this)
     if(!this.props.dark){
-        return (
-          <View style={styles.container}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
+      return (
+        <View style={styles.container}>
+          <View style={{flexDirection:'row', alignItems:'center'}}>
             <Icon name="ios-browsers" style={{margin:10,}} size={30} color="#fff" />
             <Text style={{color:'#fff', margin:8, fontWeight:'500', fontSize:17}}>{this.props.name}</Text>
-            </View>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-            <TouchableOpacity>
-                    <Iconz name="search" style={{margin:5}} size={20} color="#fff" />
-                    </TouchableOpacity><TouchableOpacity>
-            <Iconz name="more-vert" style={{margin:5}} size={20} color="#fff" />
+          </View>
+          <View style={{flexDirection:'row', alignItems:'center'}}>
+            <TouchableOpacity onPress={this._goSearch.bind(this)}>
+              <Iconz name="search" style={{margin:5}} size={20} color="#fff" />
             </TouchableOpacity>
-            </View>
-          </View>)}else{
-             return (
-          <View style={styles.containerD}>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
+            {/*<TouchableOpacity>
+              <Iconz name="more-vert" style={{margin:5}} size={20} color="#fff" />
+            </TouchableOpacity>*/}
+          </View>
+        </View>
+      )
+    }else{
+      return (
+        <View style={styles.containerD}>
+          <View style={{flexDirection:'row', alignItems:'center'}}>
             <Icon name="logo-youtube" style={{margin:10,}} size={30} color="#fff" />
             <Text style={{color:'#fff', margin:8, fontWeight:'500', fontSize:17}}>{this.props.name}</Text>
-            </View>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
+          </View>
+          <View style={{flexDirection:'row', alignItems:'center'}}>
             <TouchableOpacity>
-                    <Iconz name="search" style={{margin:5}} size={20} color="#fff" />
-                    </TouchableOpacity><TouchableOpacity>
-            <Iconz name="more-vert" style={{margin:5}} size={20} color="#fff" />
+              <Iconz name="search" style={{margin:5}} size={20} color="#fff" />
             </TouchableOpacity>
-            </View>
-          </View>)}
-          }
-  
+            <TouchableOpacity>
+              <Iconz name="more-vert" style={{margin:5}} size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
+    }
   }
+
+  //去搜索页面
+  _goSearch(){
+
+    this.props.navigator.push({
+      name:'search',
+      id:'search'
+    })
+  }
+  
+}
 
 
 const styles = StyleSheet.create({

@@ -14,6 +14,7 @@ import {
   Image
 } from 'react-native';
 
+import {timeCycle,formatDuring,imageUrl} from '../../common/util'
 var {height, width} = Dimensions.get('window');
 
 
@@ -26,12 +27,13 @@ export default class upInfo extends Component {
   }
 
   render() {
+    //console.log(this)
     var data=this.state.data
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={this._goDetailTv.bind(this)}>
         <Image 
           style={styles.upImg} 
-          source={{uri : data.user.head}} 
+          source={{uri : imageUrl(data.user.head)}} 
           resizeMode="contain"/>
         <View style={styles.iteminfoCon}>
           <Text numberOfLines={1} style={styles.upName} >
@@ -46,8 +48,39 @@ export default class upInfo extends Component {
             订阅100
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
+  }
+  //去频道
+  _goDetailTv(){
+    //console.log(this.props.navigator.getCurrentRoutes())
+    //return
+    var id=this.state.data.user.id
+    var navio=this.props.navigator.getCurrentRoutes()
+    var status=false
+    for (var i = 0; i < navio.length; i++) {
+      if(navio[i].name=='detailTv'&&navio[i].params._id==id){
+        status=true
+        break
+      }
+      status=false
+    }
+    this.props.videoDown()
+
+    if(status){
+      return
+    }
+    
+    setTimeout(() => {
+      this.props.navigator.push({
+        name:'detailTv',
+        id:'detailTv',
+        params:{
+          _id:id
+        }
+      })
+    }, 800)
+      
   }
 }
 

@@ -1,7 +1,7 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
+ * @flow  press = {() => this.pressPlay()}
  */
 
 import React, { Component } from 'react';
@@ -184,28 +184,28 @@ export default class Holder extends Component {
   render() {
     return (
       <View style={{flex:1, backgroundColor:'#2b2b2b'}}>
-      <StatusBar
-        backgroundColor="blue"
-        barStyle="light-content"
-      />
+        <StatusBar
+          backgroundColor="blue"
+          barStyle="light-content"
+        />
 
-      <Nav name="Home1" dark={false} />
+        <Nav navigator={this.props.navigator} {...this.props} name="Home1" dark={false} />
 
-      <ScrollableTabView 
-        style={{flex:1,paddingBottom:55}}
-        locked={true}//关闭滑动切换tab
-        initialPage={0}
-        scrollWithoutAnimation={true}//关闭动画效果
-        renderTabBar={() => <FacebookTabBar />}
-        tabBarBackgroundColor="#212121">
-          <Home press = {() => this.pressPlay()} navigator={this.props.navigator} {...this.props} tabLabel="home" vid = {videos} />
-          <Subscribe press = {() => this.pressPlay()} tabLabel="subject"  />
-          <Trending tabLabel="whatshot" vid = {videos} />
-          <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />
-          <Profile navigator={this.props.navigator} {...this.props}  tabLabel="person" />
-      </ScrollableTabView>
+        <ScrollableTabView 
+          style={{flex:1,paddingBottom:55}}
+          locked={true}//关闭滑动切换tab
+          initialPage={0}
+          scrollWithoutAnimation={true}//关闭动画效果
+          renderTabBar={() => <FacebookTabBar />}
+          tabBarBackgroundColor="#212121">
+            <Home navigator={this.props.navigator} {...this.props} tabLabel="home" vid = {videos} />
+            <Subscribe navigator={this.props.navigator} {...this.props} tabLabel="subject"  />
+            {/*<Trending tabLabel="whatshot" vid = {videos} />
+            <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />*/}
+            <Profile navigator={this.props.navigator} {...this.props}  tabLabel="person" />
+        </ScrollableTabView>
 
-      {this.play()}
+      
       
       </View>
     );

@@ -65,7 +65,7 @@ export default class PlayVid extends Component {
       //请求到的数据
       recommends:[],//推荐列表
       toPlayInfo:null,//当前视频相关信息
-      videoUri:'',
+      videoUri:'1',
 
       //全屏逻辑
       isFullScreen:false
@@ -117,6 +117,7 @@ export default class PlayVid extends Component {
         narrowVideo:true
       })
     }
+    return 1
     // this.setState({
     //   narrowVideo:true
     // })
@@ -130,8 +131,8 @@ export default class PlayVid extends Component {
             {
               this.state.videoUri
               ?<Video
-                //source={require('./kid.mp4')}
-                source={{uri: this.state.videoUri}}
+                source={require('./kid.mp4')}
+                //source={{uri: this.state.videoUri}}
                 style={[!this.state.narrowVideo?styles.video:styles.video1]}
                 ref='videoPlayer'
 
@@ -239,9 +240,17 @@ export default class PlayVid extends Component {
           !this.state.narrowVideo&&!this.state.isFullScreen&&this.state.toPlayInfo&&this.state.recommends
           ?<ScrollView contentContainerStyle={styles.contentContainer}>
             <View>
-              <TopTitle data={this.state.toPlayInfo} />
+              <TopTitle 
+                {...this.props} 
+                navigator={navigator} 
+                data={this.state.toPlayInfo} />
               <ShareWrap data={this.state.toPlayInfo} />
-              <UpInfo data={this.state.toPlayInfo} />
+              <UpInfo 
+                {...this.props} 
+                navigator={this.props.navigator} 
+                data={this.state.toPlayInfo}
+                videoDown={()=>this._videoDown()}
+              />
               <RecommendList data={this.state.recommends} />
               
               
@@ -257,8 +266,9 @@ export default class PlayVid extends Component {
 
   //获取相关数据
   async _fetchData(){
+    var _id=this.props.videoInfo.id
     await request.get(config.api.base+config.api.videoinfo,{
-      id:124
+      id:_id
     })
     .then((data)=>{
       if(data&&data.code==0){
@@ -266,13 +276,14 @@ export default class PlayVid extends Component {
           recommends:data.data.recommends,
           toPlayInfo:data.data.toPlayInfo
         })
-        console.log(this.state.recommends)
+        //console.log(this.state.recommends)
       }
     })
     await request.get(config.api.base+config.api.videourl,{
-      id:124
+      id:_id
     })
     .then((data)=>{
+      console.log(data)
       if(data&&data.code==0){
         this.setState({
           videoUri:data.data.videoUrls[0].url

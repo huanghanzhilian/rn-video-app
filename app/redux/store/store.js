@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 export default () => {
 	let initState = { num: 0,text:"哈哈哈"};
     // 根据 reducer 初始化 store
-    const store = createStore(Reducer,initState);
+    const store = createStore(Reducer);
 
     return store;
 }

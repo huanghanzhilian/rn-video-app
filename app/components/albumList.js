@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 14:20:42
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-13 15:20:50
+* @Last Modified time: 2018-04-16 17:39:39
 */
 import React, { Component } from 'react';
 import {
@@ -13,7 +13,8 @@ import {
   Dimensions,
   ListView,
   ActivityIndicator,
-  Image
+  Image,
+  InteractionManager
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/Foundation';
@@ -52,6 +53,11 @@ export default class albumList extends Component {
   componentDidMount(){
     var page= 1
     this._fetchData(page)
+    // InteractionManager.runAfterInteractions(()=>{  
+    //   var page= 1
+    //   this._fetchData(page)
+    // }); 
+    //this._fetchData(page)
   }
 
   render() {

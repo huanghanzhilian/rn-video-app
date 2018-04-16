@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 14:20:42
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-13 15:09:28
+* @Last Modified time: 2018-04-16 17:39:54
 */
 import React, { Component } from 'react';
 import {
@@ -13,7 +13,8 @@ import {
   Dimensions,
   ListView,
   ActivityIndicator,
-  Image
+  Image,
+  InteractionManager
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -31,6 +32,7 @@ var cachedResults={
   total:0
 }
 export default class videoList extends Component {
+
   constructor(props){
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     super(props)
@@ -51,9 +53,16 @@ export default class videoList extends Component {
   componentDidMount(){
     var page= 1
     this._fetchData(page)
+    // InteractionManager.runAfterInteractions(()=>{  
+    //   var page= 1
+    //   this._fetchData(page)
+    // }); 
+    
   }
 
   render() {
+
+    console.log(this)
   	//console.log(this.state.dataSource)
     return (
       <View style={styles.container}>
@@ -89,7 +98,14 @@ export default class videoList extends Component {
   //渲染列表
   eachVid(x){
     return(
-      <TouchableOpacity style={styles.itemBox} onPress={this.props.press}>         
+      <TouchableOpacity style={styles.itemBox} onPress={
+        ()=>{
+          this.props.ongetVideoInfo({open:false,id:0})
+          setTimeout(() => {
+            this.props.ongetVideoInfo({open:true,id:x.id})
+          }, 100)
+        }
+      }>         
         <View style={styles.item}>
           <Image 
             source={{uri : imageUrl(x.cover)}} 
