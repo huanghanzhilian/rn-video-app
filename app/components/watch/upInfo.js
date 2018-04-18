@@ -27,10 +27,9 @@ export default class upInfo extends Component {
   }
 
   render() {
-    //console.log(this)
     var data=this.state.data
     return (
-      <TouchableOpacity style={styles.container} onPress={this._goDetailTv.bind(this)}>
+      <TouchableOpacity style={styles.container} onPress={()=>this.props.goDetailTv(this.state.data.user.id)}>
         <Image 
           style={styles.upImg} 
           source={{uri : imageUrl(data.user.head)}} 
@@ -44,9 +43,9 @@ export default class upInfo extends Component {
           </Text>
         </View>
         <View style={styles.dingyue}>
-          <Text numberOfLines={1} style={styles.dingyuenum} >
+          {/*<Text numberOfLines={1} style={styles.dingyuenum} >
             订阅100
-          </Text>
+          </Text>*/}
         </View>
       </TouchableOpacity>
     );
@@ -56,7 +55,7 @@ export default class upInfo extends Component {
     //console.log(this.props.navigator.getCurrentRoutes())
     //return
     var id=this.state.data.user.id
-    var navio=this.props.navigator.getCurrentRoutes()
+    /*var navio=this.props.navigator.getCurrentRoutes()
     var status=false
     for (var i = 0; i < navio.length; i++) {
       if(navio[i].name=='detailTv'&&navio[i].params._id==id){
@@ -79,7 +78,15 @@ export default class upInfo extends Component {
           _id:id
         }
       })
-    }, 800)
+    }, 800)*/
+
+    // this.props.navigator.push({
+    //   name:'detailTv',
+    //   id:'detailTv',
+    //   params:{
+    //     _id:id
+    //   }
+    // })
       
   }
 }

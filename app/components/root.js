@@ -30,6 +30,8 @@ import Notifications from "../page/notifications/notifications"//系统通知页
 import DetailTv from "../page/detailTv/detailTv"//频道页
 import Search from "../page/search/search"//搜页
 
+import Testvideo from "./VideoPlayScreen"//搜页
+
 
 
 
@@ -107,12 +109,12 @@ class Root extends Component{
         />
         <NavigationExperimental.Navigator
           ref="toastaa"
-         style={{flex: 1}}
-         initialRoute={{id: 'splash', name: 'splash'}}
-         configureScene={(route) =>{
-          return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight
-        }} 
-         renderScene={this.renderScene.bind(this)}/>
+          style={{flex: 1}}
+          initialRoute={{id: 'splash', name: 'splash'}}
+          configureScene={(route) =>{
+            return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight
+          }} 
+          renderScene={this.renderScene.bind(this)}/>
         <Toast 
           ref="toast"
           position='center'
@@ -210,6 +212,15 @@ class Root extends Component{
     if (routeId === 'search') {
       return (
         <Search
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+
+    if (routeId === 'testvideo') {
+      return (
+        <Testvideo
         {...this.props} 
         {...route.params}
         navigator={navigator} />

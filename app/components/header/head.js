@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 14:46:18
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-08 15:07:52
+* @Last Modified time: 2018-04-18 10:23:13
 */
 import React, { Component } from 'react';
 import {
@@ -38,6 +38,10 @@ export default class head extends Component {
 
   //返回上一页
   _pop(){
+    // Use navigator pop
+    if( this.props.callback ){
+        this.props.callback()
+    }
     this.props.navigator.pop()
   }
 

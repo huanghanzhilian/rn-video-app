@@ -42,10 +42,18 @@ export default class recommendList extends Component {
       </View>
     );
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.data!==this.props.data){
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.data)
+      })
+    }
+    //console.log(nextProps.data!==this.props.data)
+  }
 
   eachVid(x){
     return(
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>this.props.fetchData(x.id)}>
         <View style={styles.item}>
           <Image 
             source={{uri : imageUrl(x.cover)}} 

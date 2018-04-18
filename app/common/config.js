@@ -13,10 +13,10 @@ module.exports={
 		//base:'http://192.168.0.103:1234/',
 		//base:'http://localhost:1234/',
 		//base:'http://rapapi.org/mockjs/32939/',
-		base:'http://m.samuredwonder.com/',
+		//base:'http://m.samuredwonder.com/',
 		//base:'http://localhost:3006/',
 		//base:'http://127.0.0.1:3006/',
-		//base:'http://192.168.31.39:3006/',
+		base:'http://192.168.31.39:3006/',
 		userinfo:'api/user/info',//查看用户信息
 		creations:'api/mobile/common/index/videos',//首页数据列表
 		getSubscription:'api/mobile/subscription/video/list',//订阅数据列表
@@ -38,6 +38,7 @@ module.exports={
 		setSwitch:'api/subscription/switch',//订阅主播频道
 
 		getSearch:'api/search/all',//搜索接口
+		videoLike:'api/like/video/switch',//视频点赞接口
 	},
 	
 }

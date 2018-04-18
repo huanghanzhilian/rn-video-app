@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 14:20:42
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-16 17:39:54
+* @Last Modified time: 2018-04-17 15:27:14
 */
 import React, { Component } from 'react';
 import {
@@ -62,7 +62,7 @@ export default class videoList extends Component {
 
   render() {
 
-    console.log(this)
+    //console.log(this)
   	//console.log(this.state.dataSource)
     return (
       <View style={styles.container}>

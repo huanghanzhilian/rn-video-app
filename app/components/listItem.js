@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 10:58:39
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-16 13:53:52
+* @Last Modified time: 2018-04-17 11:47:36
 */
 import React, { Component } from 'react';
 import {
@@ -24,6 +24,7 @@ export default class listItem extends Component {
     var row=this.props.row
     this.state={
     	_id:row.user.id,
+      videoId:row.id,
       row:row
     }
   }
@@ -36,11 +37,12 @@ export default class listItem extends Component {
     return (
       <TouchableOpacity style={styles.itemBox} 
         onPress={()=>{
+          this._goWatch()
             //ongetVideoInfo({open:false,id:0})}
-            ongetVideoInfo({open:false,id:0})
-            setTimeout(() => {
-              ongetVideoInfo({open:true,id:row.id})
-            }, 100)
+            // ongetVideoInfo({open:false,id:0})
+            // setTimeout(() => {
+            //   ongetVideoInfo({open:true,id:row.id})
+            // }, 100)
           }
         }>         
         <View style={styles.item}>
@@ -82,6 +84,16 @@ export default class listItem extends Component {
       id:'detailTv',
       params:{
         _id:this.state._id
+      }
+    })
+  }
+  //去播放页
+  _goWatch(){
+    this.props.navigator.push({
+      name:'testvideo',
+      id:'testvideo',
+      params:{
+        videoId:this.state.videoId
       }
     })
   }

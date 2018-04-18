@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 11:20:00
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-16 18:21:17
+* @Last Modified time: 2018-04-18 10:22:16
 */
 import React, { Component } from 'react';
 import {
@@ -67,7 +67,7 @@ export default class detailTv extends Component {
       	{
       		this.state.upInfo
       		?<View style={styles.container}>
-	      		<Head title={this.state.upInfo.name} navigator={this.props.navigator} />
+	      		<Head title={this.state.upInfo.name} {...this.props} navigator={this.props.navigator} />
 		      	<ScrollableTabView 
 		      		renderTabBar={()=><DetailTvTab upInfo={this.state.upInfo}/>}
 		      	>
