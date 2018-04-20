@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 10:58:39
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-17 11:47:36
+* @Last Modified time: 2018-04-20 10:15:09
 */
 import React, { Component } from 'react';
 import {
@@ -110,14 +110,15 @@ const styles = StyleSheet.create({
     width:width,
     backgroundColor:'#212121',
     borderBottomWidth:1,
-    borderColor:'#383838'
+    borderColor:'#383838',
+
   },
   thumb:{
-    width:350,
+    width:width-10,
     alignSelf:'center',
-    height:width*0.5625,
-    margin:15,
-    marginBottom:0
+    height:width*0.5625-10,
+    //margin:15,
+    marginBottom:0,
   },
   duration:{
     position:'absolute',

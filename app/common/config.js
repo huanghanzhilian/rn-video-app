@@ -16,7 +16,7 @@ module.exports={
 		//base:'http://m.samuredwonder.com/',
 		//base:'http://localhost:3006/',
 		//base:'http://127.0.0.1:3006/',
-		base:'http://192.168.31.39:3006/',
+		base:'http://192.168.0.102:3006/',
 		userinfo:'api/user/info',//查看用户信息
 		creations:'api/mobile/common/index/videos',//首页数据列表
 		getSubscription:'api/mobile/subscription/video/list',//订阅数据列表
@@ -39,6 +39,22 @@ module.exports={
 
 		getSearch:'api/search/all',//搜索接口
 		videoLike:'api/like/video/switch',//视频点赞接口
+
+		getBorderlands:'api/filter/borderlands',//Borderlands列表
+		getTagborderlands:'api/dictionary/type/video/borderlands',//获取tag数据
+
+		getInformation:'api/filter/information',//资讯列表
+		getTaginformation:'api/dictionary/type/video/information',//获取tag数据
+
+		getMovie:'api/filter/film',
+		getMovieType:'api/dictionary/type/video/film',//获取tag数据
+		getMovieYears:'api/dictionary/type/years/film',
+		getMovieCountry:'api/dictionary/type/country',
+
+
+		getSeries:'api/filter/series',//剧集列表页
+		getTypeseries:'api/dictionary/type/series',
+		getTypeyearsseries:'api/dictionary/type/years/series',
 	},
 	
 }

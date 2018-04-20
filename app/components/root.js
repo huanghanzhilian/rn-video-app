@@ -32,6 +32,13 @@ import Search from "../page/search/search"//搜页
 
 import Testvideo from "./VideoPlayScreen"//搜页
 
+import Borderlands from "../page/borderlands/borderlands"
+import Information from "../page/information/information"
+import Movie from "../page/movie/movie"
+import Drama from "../page/drama/drama"
+
+
+
 
 
 
@@ -101,7 +108,7 @@ class Root extends Component{
   }
   render() {
     // console.log('index')
-    console.log(this)
+    //console.log(this)
     return (
       <View style={{flex:1,backgroundColor:'#212121'}}>
         <StatusBar 
@@ -226,6 +233,42 @@ class Root extends Component{
         navigator={navigator} />
       );
     }
+
+    if (routeId === 'borderlands') {
+      return (
+        <Borderlands
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+
+    if (routeId === 'information') {
+      return (
+        <Information
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+    if (routeId === 'movie') {
+      return (
+        <Movie
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+    if (routeId === 'drama') {
+      return (
+        <Drama
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+
+    
 
     
     

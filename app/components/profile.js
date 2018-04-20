@@ -18,6 +18,7 @@ import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 import {timeCycle,formatDuring,imageUrl,formatDateTime} from '../common/util'
 import Islogin from "./islogin/islogin"
+import Nav from './widgets/nav'
 
 
 export default class Profile extends Component {
@@ -33,7 +34,7 @@ export default class Profile extends Component {
     if(this.props.userInfo){
       return (
         <View style={styles.container}>
-          
+          <Nav navigator={this.props.navigator} {...this.props} name="我的" dark={false} onSelect={()=>this._dialog()} />
           <View style={styles.user_wrap}>
             <View style={styles.user_info_wrap}>
               <View style={styles.user_info_item}>
@@ -182,11 +183,14 @@ export default class Profile extends Component {
     }
     return (
       <View style={styles.container}>
+        <Nav navigator={this.props.navigator} {...this.props} name="我的" dark={false} onSelect={()=>this._dialog()} />
         <Islogin navigator={this.props.navigator} />
       </View>
     );
   }
-
+  _dialog(){
+    this.props.onSelect()
+  }
   //退出登录
   _logout(){
     RCTDeviceEventEmitter.emit('tuichu');

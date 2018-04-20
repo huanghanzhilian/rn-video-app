@@ -25,6 +25,7 @@ import Trending from "./trending"
 import FacebookTabBar from './facebook';
 import Nav from './widgets/nav';
 import Play from './play'
+import Dialog from './widgets/DialogLeft';
 
 var subs = [
 {
@@ -189,7 +190,7 @@ export default class Holder extends Component {
           barStyle="light-content"
         />
 
-        <Nav navigator={this.props.navigator} {...this.props} name="Home1" dark={false} />
+        {/*<Nav navigator={this.props.navigator} {...this.props} name="Home1" dark={false} />*/}
 
         <ScrollableTabView 
           style={{flex:1,paddingBottom:55}}
@@ -198,17 +199,27 @@ export default class Holder extends Component {
           scrollWithoutAnimation={true}//关闭动画效果
           renderTabBar={() => <FacebookTabBar />}
           tabBarBackgroundColor="#212121">
-            <Home navigator={this.props.navigator} {...this.props} tabLabel="home" vid = {videos} />
-            <Subscribe navigator={this.props.navigator} {...this.props} tabLabel="subject"  />
+            <Home navigator={this.props.navigator} {...this.props} tabLabel="home" vid = {videos} onSelect={()=>this._dialog()} />
+            <Subscribe navigator={this.props.navigator} {...this.props} tabLabel="subject" onSelect={()=>this._dialog()} />
             {/*<Trending tabLabel="whatshot" vid = {videos} />
             <Subs tabLabel="subscriptions" vids = {videos} subs = {subs} />*/}
-            <Profile navigator={this.props.navigator} {...this.props}  tabLabel="person" />
+            <Profile navigator={this.props.navigator} {...this.props}  tabLabel="person" onSelect={()=>this._dialog()} />
         </ScrollableTabView>
-
+        <Dialog
+          navigator={this.props.navigator} 
+          {...this.props} 
+          ref="dialog"
+        />
       
       
       </View>
     );
+  }
+
+  _dialog(){
+    //console.dir(Dialog)
+    //console.log(this.refs.dialog)
+    this.refs.dialog.show('分类', "string","string" ,{name:1})
   }
 
   // //获取数据

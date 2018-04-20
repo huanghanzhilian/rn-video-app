@@ -24,6 +24,7 @@ var config=require('../common/config');
 import Islogin from "./islogin/islogin"
 import Play from './play'
 import ListItem from './listItem'
+import Nav from './widgets/nav'
 
 var {height, width} = Dimensions.get('window');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -80,6 +81,7 @@ export default class Subscribe extends Component {
     if(this.props.userInfo){
       return (
         <View style={{flex:1}}>
+          <Nav navigator={this.props.navigator} {...this.props} name="订阅" dark={false} onSelect={()=>this._dialog()} />
           <ListView
             enableEmptySections={true}
             automaticallyAdjustContentInsets={false}
@@ -104,12 +106,15 @@ export default class Subscribe extends Component {
     }
     return (
       <View style={styles.container}>
+        <Nav navigator={this.props.navigator} {...this.props} name="订阅" dark={false} onSelect={()=>this._dialog()} />
         <Islogin navigator={this.props.navigator} />
       </View>
     );
       
   }
-
+  _dialog(){
+    this.props.onSelect()
+  }
   //是否没有更多新数据了 返回true为还有数据
   _hasMore(){
     return cachedResults.items.length!==cachedResults.total 

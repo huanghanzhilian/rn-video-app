@@ -15,6 +15,7 @@ import Video from 'react-native-video';
 import Orientation from 'react-native-orientation';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import RNFetchBlob from 'react-native-fetch-blob'
+import StaticServer from 'react-native-static-server';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
@@ -73,11 +74,31 @@ export default class VideoPlayScreen extends Component {
       toPlayInfo:null,//当前视频相关信息
       videoUri:'',
 
+      testimage:'',
+      testVideo:'/Users/macintoshhd/Library/Developer/CoreSimulator/Devices/598B2F69-EEF0-4BAB-8509-1345D0BE81D8/data/Containers/Data/Application/EE9DF030-32BD-4FAE-99E0-48158768EFFC/Documents/videocache/ll.m3u8'
+
     };
   }
 
   componentDidMount(){
     InteractionManager.runAfterInteractions(()=>{  
+      // var fs=RNFetchBlob.fs
+      // var path=RNFetchBlob.fs.dirs.DocumentDir
+
+      // //建立食品主文件
+      // var videocache=path+'/videocache/a88334ea743bdebd8f1e5df484fbc237-d5jtq9j.jpg'
+      // this.setState({
+      //   testimage:videocache
+      // })
+      // console.log(videocache)
+      // request.get('http://localhost:8081/loeEbHr6-FeSrHiFIu253ClJq3zE/ll.m3u8')
+      // .then((data)=>{
+      //   console.log(data)
+      // })
+      // Start the server
+      // server.start().then((url) => {
+      //   console.log("Serving at URL", url);
+      // });
       this._fetchData()
     });
     
@@ -92,7 +113,8 @@ export default class VideoPlayScreen extends Component {
             ?<View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
               <Video
                 ref={(ref) => this.videoPlayer = ref}
-                source={{uri: this.state.videoUri}}
+                //source={{uri: this.state.videoUri}}
+                source={{uri: this.state.videoUrl}}
                 rate={1.0}
                 volume={1.0}
                 muted={false}
@@ -201,6 +223,7 @@ export default class VideoPlayScreen extends Component {
           this.state.toPlayInfo&&this.state.recommends
           ?<ScrollView contentContainerStyle={styles.contentContainer}>
             <View>
+             
               <TopTitle 
                 {...this.props} 
                 navigator={navigator} 

@@ -23,6 +23,8 @@ var config=require('../common/config');
 
 import Play from './play'
 import ListItem from './listItem'
+import Nav from './widgets/nav';
+
 
 var {height, width} = Dimensions.get('window');
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -78,6 +80,13 @@ export default class Home extends Component {
   render() {
     return (
       <View style={{flex:1}}>
+        <Nav 
+          navigator={this.props.navigator} 
+          {...this.props} 
+          name="Home1" 
+          dark={false} 
+          onSelect={()=>this._dialog()} 
+        />
         <ListView
           enableEmptySections={true}
           automaticallyAdjustContentInsets={false}
@@ -97,8 +106,13 @@ export default class Home extends Component {
           }
           style={{marginTop:5}}
         />
+        
       </View>
     );
+  }
+
+  _dialog(){
+    this.props.onSelect()
   }
 
   //是否没有更多新数据了 返回true为还有数据

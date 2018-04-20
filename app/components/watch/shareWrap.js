@@ -90,9 +90,24 @@ export default class shareWrap extends Component {
     return activeDownloads[toFile];
   }
   async _download(){
+        // var deCodeUrl=decodeURIComponent(url)//解析url 建立对应视频文件夹
+    // var pattern=/http:\/\/video.samuredwonder.com\/video\/user\/(\d*)\/(\S*)(.mp4|.mp5){1}/
+    // var saveMkdir=deCodeUrl.match(pattern)[2]//得到文件夹名
+    // //建立食品文件夹
+    // var videoBox=videocache+'/'+saveMkdir
+    // var isvideoBox=await fs.isDir(videoBox)
+    // if(!isvideoBox){
+    //   await fs.mkdir(videoBox)
+    //     .then(() => {console.log('创建 视频单个文件夹 文件成功')})
+    //     .catch((err) => {console.log('创建 视频单个文件夹 文件失败')})
+    // }
+    //console.log(saveMkdir)
+    //return
     //const baseCacheDir = RNFetchBlob.fs.dirs.CacheDir + '/videocache';//隐藏目录
     var fs=RNFetchBlob.fs
     var path=RNFetchBlob.fs.dirs.DocumentDir
+
+    //建立食品主文件
     var videocache=path+'/videocache'
     let isDir=await fs.isDir(videocache)
     if(!isDir){
@@ -100,12 +115,15 @@ export default class shareWrap extends Component {
         .then(() => {console.log('创建 videocache 文件成功')})
         .catch((err) => {console.log('创建 videocache 文件失败')})
     }
-    let dirs = videocache+'/ll.m3u8'
+
+    var url='http://video.samuredwonder.com/6f94765277492f9b8ab181ce6a22b387%3D%2FlrOn4B7V9FewWz96xCggAUHObdPc%2F0?pm3u8/0/expires/90384&e=1524169405&token=vcZj_ZMWMJ8gU759Lfsd8_A2jgriPXGS6tBJX1Ss:u5YUx1lI_8VzrXrgTOGOvkurKUs=';
+
+    let dirs = videocache+'/test.m3u8'
  
     
     
 
-    var url='http://video.samuredwonder.com/5c79c7fd53acdbf1eb6d86875625c147=/lph25XsXld3iu178K-LFJVIM8qz7/0?e=1524132418&token=vcZj_ZMWMJ8gU759Lfsd8_A2jgriPXGS6tBJX1Ss:HZmS1Ch2mbtxaKroZSmjxH4A9gQ';
+    
     var dirsRes=await this.downloadVideo(url,dirs)
     console.log(dirsRes)
 
@@ -129,38 +147,19 @@ export default class shareWrap extends Component {
     
   }
   async walk(segments,videocache){
-    // var fs=RNFetchBlob.fs
-    // var path=RNFetchBlob.fs.dirs.DocumentDir
-    // var videocache=path+'/videocache'
-    // let isDir=await fs.isDir(videocache)
-    // if(!isDir){
-    //   await fs.mkdir(videocache)
-    //     .then(() => {console.log('创建 videocache 文件成功')})
-    //     .catch((err) => {console.log('创建 videocache 文件失败')})
-    // }
-    let dirs = videocache+'/'+segments[0].uri
- 
-    
-    
-
-    var dirsRes=await this.downloadVideo('http://video.samuredwonder.com'+segments[0].uri,dirs)
-    console.log(dirsRes)
-
-    var manifest = await dirsRes.text()
-    console.log(manifest)
-    return
-     segments.forEach(function(file){
-      console.log(file)
-       // var filePath=path.join(modelsPath,'/'+file)
-       // var stat=fs.statSync(filePath)
-       // if(stat.isFlie()){
-       //   if(/(.*)\.(js|coffee)/.test(file)){
-       //     require(filePath)
-       //   }
-       // }else if(stat.isDirectory()){
-       //   walk(filePath)
-       // }
-     })
+    this.asyncForEach(segments, async x => {
+      var qianzui='http://video.samuredwonder.com'
+      let dirs = videocache+'/'+x.uri
+      let url = qianzui+x.uri
+      var res = this.downloadVideo(url,dirs)
+      console.log(res)
+    })
+  }
+  //for异步循环
+  async asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array)
+    }
   }
   //点赞
   _up(){
