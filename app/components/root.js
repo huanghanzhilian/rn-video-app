@@ -36,6 +36,7 @@ import Borderlands from "../page/borderlands/borderlands"
 import Information from "../page/information/information"
 import Movie from "../page/movie/movie"
 import Drama from "../page/drama/drama"
+import Recharge from "../page/recharge/recharge"
 
 
 
@@ -262,6 +263,15 @@ class Root extends Component{
     if (routeId === 'drama') {
       return (
         <Drama
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+    
+    if (routeId === 'recharge') {
+      return (
+        <Recharge
         {...this.props} 
         {...route.params}
         navigator={navigator} />

@@ -50,7 +50,7 @@ export default class Profile extends Component {
                   <Text style={styles.text}>会员到期时间：{formatDateTime(userInfo.membershipInvalidTime)}</Text>
                 </View>
                 <View style={styles.item_r}>
-                  <Text style={styles.text} onPress={this._logout.bind(this)}>续费</Text>
+                  <Text style={styles.text} onPress={()=>this._goPage('recharge')}>续费</Text>
                 </View>
               </View>
             </View>
