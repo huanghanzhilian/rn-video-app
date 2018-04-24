@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 18:58:01
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-16 12:20:43
+* @Last Modified time: 2018-04-24 16:34:58
 */
 import React, { Component } from 'react';
 import {
@@ -14,7 +14,8 @@ import {
   TextInput,
   ListView,
   ActivityIndicator,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
@@ -44,7 +45,36 @@ export default class search extends Component {
       //加载交互
       isLoadingTail:false,//初始化转菊花
       isRefreshing:false,//是否重新加载 转菊花
+
+      //搜索记录
+      historyArr:[]
     }
+  }
+  //开始安装  1
+  componentWillMount(){
+  }
+  //安装过  3
+  componentDidMount(){
+    this._getbenAsyncStorage()
+  }
+  //初始化得到本地存储搜索记录
+  async _getbenAsyncStorage(){
+    var afterRow=await AsyncStorage.getItem('search_history')
+    if(!afterRow){
+      return
+    }
+    afterRow=JSON.parse(afterRow)
+
+    this.setState({
+      historyArr:afterRow
+    })
+  }
+  //清除历史记录
+  async _historyDelete(){
+    await AsyncStorage.removeItem('search_history')
+    this.setState({
+      historyArr:[]
+    })
   }
   componentWillUnmount(){
     cachedResults={
@@ -106,12 +136,22 @@ export default class search extends Component {
           !this.state.content||!cachedResults.items.length&&!this.state.isLoadingTail
           ?<View style={styles.historyBox}>
             <Text style={styles.historyTitle}>历史搜索</Text>
-            <View style={styles.historyItemBox}>
-              <View style={styles.historyItem}>
-                <Icon2 style={styles.historyItemIcon} name="history" />
-                <Text style={styles.historyItemContent}>lll</Text>
+            {
+              this.state.historyArr.length
+              ?<View style={styles.historyItemBox}>
+                {this.state.historyArr.map((tab, i) => {
+                  return <View key={tab.timestamp} style={styles.historyItem}>
+                        <Icon2 style={styles.historyItemIcon} name="history" />
+                        <View style={styles.historyItemContentBox}>
+                          <Text numberOflines={1} style={styles.historyItemContent}>{tab.isHistory}</Text>
+                        </View>
+                      </View>
+                })}
+                <Text numberOflines={1} onPress={this._historyDelete.bind(this)} style={styles.historyDelete}>清除历史记录</Text>   
               </View>
-            </View>
+              :null
+            }
+              
           </View>
           :null
         }
@@ -174,12 +214,53 @@ export default class search extends Component {
       dataSource: this.state.dataSource.cloneWithRows([])
     })
   }
+
+  
   //搜索提交
-  _submit(){
+  async _submit(){
     var content=this.state.content
     if(!content){
       return
     }
+
+    var that=this
+    var item=new Date().getTime()
+    var contentItem=[{isHistory:content,timestamp:item}]
+
+    var beforeRow=await AsyncStorage.getItem('search_history')
+    if(beforeRow){
+      //转成json
+      beforeRow=JSON.parse(beforeRow)
+
+      //如果搜索相同 置顶当前搜索
+      for (let i = 0; i < beforeRow.length; i++) {
+        if(beforeRow[i].isHistory==content){
+          beforeRow.splice(i,1)
+        }
+      }
+      contentItem=contentItem.concat(beforeRow)//拼接数组
+      //如果历史记录大于5条
+      if(contentItem.length>=5){
+        contentItem.splice(5,1)
+      }
+    }
+    
+
+    
+
+    
+    //将json转成字符串
+    contentItem=JSON.stringify(contentItem)
+
+    
+    await AsyncStorage.setItem('search_history',contentItem)
+    var afterRow=await AsyncStorage.getItem('search_history')
+    afterRow=JSON.parse(afterRow)
+
+    this.setState({
+      historyArr:afterRow
+    })
+  
     this._fetchData(1)
 
   }
@@ -438,10 +519,23 @@ const styles = StyleSheet.create({
     color:'#848484',
     fontSize:14,
   },
+  historyItemContentBox:{
+    //backgroundColor:'red',
+    //overflow: 'hidden',
+    //width:width*0.8,
+    //flex:1,
+  },
   historyItemContent:{
     color:'#848484',
     fontSize:14,
-    paddingLeft:8
+    paddingLeft:8,
+    overflow: 'hidden',
+  },
+  historyDelete:{
+    color:'#848484',
+    padding:10,
+    marginTop:10,
+    textAlign:'center'
   },
   /*历史搜索 e */
 

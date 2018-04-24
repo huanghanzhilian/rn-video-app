@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 14:20:42
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-21 00:05:39
+* @Last Modified time: 2018-04-24 13:57:49
 */
 import React, { Component } from 'react';
 import {
@@ -130,7 +130,9 @@ export default class videoList extends Component {
         <Modal
           animationType={'fade'}//定义浮层出现形式
           visible={this.state.modalVisible}//是否开启
-          onRequsetClose={()=>{this._setModalVisible(false)}}//关闭时候
+          onRequestClose={() => {
+            //alert('Modal has been closed.');
+          }}
           >
           <View style={styles.modalContainer}>
             <View style={styles.header}>

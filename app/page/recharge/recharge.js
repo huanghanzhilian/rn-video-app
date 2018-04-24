@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-23 09:37:33
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-23 11:37:24
+* @Last Modified time: 2018-04-24 14:05:33
 */
 
 import React, { Component } from 'react';
@@ -187,7 +187,10 @@ export default class Recharge extends Component {
         </ScrollView>
         <View style={styles.orderBottom}>
 	        	<Text style={styles.total}>总计 ￥{this.state.current}</Text>
-	        	<Text style={styles.doPay}>确认支付</Text>
+	        	<TouchableOpacity style={styles.doPayBox}>
+	        		<Text style={styles.doPay}>确认支付</Text>
+	        	</TouchableOpacity>
+	        	
 	        </View>
       </View>
     );
@@ -301,12 +304,23 @@ const styles = StyleSheet.create({
 	total:{
 		color:'#c8c6c9'
 	},
-	doPay:{
+	doPayBox:{
 		backgroundColor:'#e34849',
 		width:150,
 		height:48,
-		textAlign:'center',
-		lineHeight:48,
+		justifyContent:'space-between',
+		alignItems: 'center',
+		justifyContent: 'center',
+		// textAlign:'center',
+		// lineHeight:48,
+		//color:'#fff'
+	},
+	doPay:{
+		// backgroundColor:'#e34849',
+		// width:150,
+		// height:48,
+		// textAlign:'center',
+		// lineHeight:48,
 		color:'#fff'
 	},
 
