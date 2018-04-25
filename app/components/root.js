@@ -5,11 +5,14 @@ import {
   Image,
   Text,
   View,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler,
+  Platform
 } from 'react-native';
 import NavigationExperimental from 'react-native-deprecated-custom-components';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Toast, {DURATION} from 'react-native-easy-toast'
+
 
 
 import { connect } from 'react-redux';
@@ -60,12 +63,19 @@ class Root extends Component{
 
   //开始安装  1
   componentWillMount(){
+    
     //console.log('father','开始安装')
   }
 
   //安装过  3
   componentDidMount(){
+    if (Platform.OS === 'android') {
+        
 
+        BackHandler.addEventListener("back", this.onBackClicked.bind(this));
+    }else {
+
+    }
 
 
     let me = this;
@@ -80,6 +90,15 @@ class Root extends Component{
     })
 
     this._asyncAppStatus()//异步读取本机存储
+  }
+
+  onBackClicked(){
+    const navigator = this.refs.toastaa;
+    if (navigator && navigator.getCurrentRoutes().length > 2) {
+       navigator.pop();
+       return true;//true 表示返回上一页
+    }
+    return false; // 默认false  表示跳出RN
   }
 
   play(){
@@ -112,9 +131,9 @@ class Root extends Component{
     //console.log(this)
     return (
       <View style={{flex:1,backgroundColor:'#212121'}}>
-        <StatusBar 
+        {/*<StatusBar 
          barStyle="light-content"
-        />
+        />*/}
         <NavigationExperimental.Navigator
           ref="toastaa"
           style={{flex: 1}}
@@ -362,4 +381,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // 进行第二层包装,生成的新组件拥有 接收和发送 数据的能力
-export default connect(mapStateToProps,mapDispatchToProps)(Root);
+export default connect(mapStateToProps,mapDispatchToProps)(Root) 

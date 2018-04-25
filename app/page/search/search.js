@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 18:58:01
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-24 16:34:58
+* @Last Modified time: 2018-04-24 16:43:46
 */
 import React, { Component } from 'react';
 import {
@@ -100,6 +100,7 @@ export default class search extends Component {
             <View style={styles.inputBox}>
               <TextInput 
                 placeholder='搜索视频'
+                underlineColorAndroid="transparent"
                 placeholderTextColor='#7e7e7e'
                 autoCaptialize={'none'}//不去纠正大小写
                 autoCorrect={false}//不去纠正内容对与错

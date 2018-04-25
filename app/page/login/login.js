@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 14:14:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-10 15:08:42
+* @Last Modified time: 2018-04-24 16:46:07
 */
 import React, { Component } from 'react';
 import {
@@ -57,6 +57,7 @@ export default class login extends Component {
           <Image source={require('../../images/ytb_logo.png')} resizeMode="contain" style={styles.img} />
           <TextInput 
             placeholder='手机|邮箱账号'
+            underlineColorAndroid="transparent"
             placeholderTextColor='#7e7e7e'
             autoCaptialize={'none'}//不去纠正大小写
             autoCorrect={false}//不去纠正内容对与错
@@ -78,6 +79,7 @@ export default class login extends Component {
           {
             !this.state.isFindpasStatus
             ?<TextInput 
+              underlineColorAndroid="transparent"
               placeholder='密码'
               placeholderTextColor='#7e7e7e'
               secureTextEntry={true}
@@ -95,6 +97,7 @@ export default class login extends Component {
               <View style={styles.inputWrap}>
                 <TextInput 
                   placeholder='验证码'
+                  underlineColorAndroid="transparent"
                   placeholderTextColor='#7e7e7e'
                   autoCaptialize={'none'}//不去纠正大小写
                   autoCorrect={false}//不去纠正内容对与错
@@ -127,6 +130,7 @@ export default class login extends Component {
               <View style={styles.inputWrap}>
                 <TextInput 
                   placeholder='填写新密码'
+                  underlineColorAndroid="transparent"
                   placeholderTextColor='#7e7e7e'
                   secureTextEntry={true}
                   autoCaptialize={'none'}//不去纠正大小写
@@ -144,6 +148,7 @@ export default class login extends Component {
               <View style={styles.inputWrap}>
                 <TextInput 
                   placeholder='确认新密码'
+                  underlineColorAndroid="transparent"
                   placeholderTextColor='#7e7e7e'
                   secureTextEntry={true}
                   autoCaptialize={'none'}//不去纠正大小写

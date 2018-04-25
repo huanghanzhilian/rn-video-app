@@ -131,8 +131,8 @@ export default class PlayVid extends Component {
             {
               this.state.videoUri
               ?<Video
-                source={require('./kid.mp4')}
-                //source={{uri: this.state.videoUri}}
+                //source={require('./kid.mp4')}
+                source={{uri: this.state.videoUri}}
                 style={[!this.state.narrowVideo?styles.video:styles.video1]}
                 ref='videoPlayer'
 

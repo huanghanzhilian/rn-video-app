@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-12 18:12:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-16 18:27:48
+* @Last Modified time: 2018-04-25 10:04:32
 */
 import React, { Component } from 'react';
 import {
@@ -116,7 +116,10 @@ export default class notifications extends Component {
       	<Modal
           animationType={'fade'}//定义浮层出现形式
           visible={this.state.modalVisible}//是否开启
-          onRequsetClose={()=>{this._setModalVisible(false)}}//关闭时候
+          //onRequsetClose={()=>{this._setModalVisible(false)}}//关闭时候
+          onRequestClose={() => {
+            //alert('Modal has been closed.');
+          }}
           >
           <View style={styles.modalContainer}>
           	<View style={styles.header}>

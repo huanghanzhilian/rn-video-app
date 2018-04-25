@@ -185,10 +185,10 @@ export default class Holder extends Component {
   render() {
     return (
       <View style={{flex:1, backgroundColor:'#2b2b2b'}}>
-        <StatusBar
+        {/*<StatusBar
           backgroundColor="blue"
           barStyle="light-content"
-        />
+        />*/}
 
         {/*<Nav navigator={this.props.navigator} {...this.props} name="Home1" dark={false} />*/}
 

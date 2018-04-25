@@ -83,7 +83,7 @@ export default class Home extends Component {
         <Nav 
           navigator={this.props.navigator} 
           {...this.props} 
-          name="Home1" 
+          name="Home" 
           dark={false} 
           onSelect={()=>this._dialog()} 
         />

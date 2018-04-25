@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 14:14:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-08 16:30:45
+* @Last Modified time: 2018-04-24 16:46:29
 */
 import React, { Component } from 'react';
 import {
@@ -37,6 +37,7 @@ export default class register extends Component {
           <Image source={require('../../images/ytb_logo.png')} resizeMode="contain" style={styles.img} />
           <TextInput 
             placeholder='手机|邮箱账号'
+            underlineColorAndroid="transparent"
             placeholderTextColor='#7e7e7e'
             autoCaptialize={'none'}//不去纠正大小写
             autoCorrect={false}//不去纠正内容对与错
@@ -52,6 +53,7 @@ export default class register extends Component {
           <View style={styles.verifyCodeBox}>
             <TextInput 
               placeholder='输入验证码'
+              underlineColorAndroid="transparent"
               placeholderTextColor='#7e7e7e'
               autoCaptialize={'none'}//不去纠正大小写
               autoCorrect={false}//不去纠正内容对与错
@@ -85,6 +87,7 @@ export default class register extends Component {
 
           <TextInput 
             placeholder='密码'
+            underlineColorAndroid="transparent"
             placeholderTextColor='#7e7e7e'
             secureTextEntry={true}
             autoCaptialize={'none'}//不去纠正大小写
