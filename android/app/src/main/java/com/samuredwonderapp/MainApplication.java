@@ -3,6 +3,8 @@ package com.samuredwonderapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.futurepress.staticserver.FPStaticServerPackage;
+import com.theweflex.react.WeChatPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FPStaticServerPackage(),
+            new WeChatPackage(),
             new RNFetchBlobPackage(),
             new OrientationPackage(),
             new ReactNativeYouTube(),

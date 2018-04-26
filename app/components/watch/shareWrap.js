@@ -46,7 +46,7 @@ export default class shareWrap extends Component {
           />
           <Text style={styles.text}>{this.state.likeAmount}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.list}>
+        <TouchableOpacity style={styles.list} onPress={this._shareToSession.bind(this)}>
           <Icon
             name='share-2'
             style={styles.Icon}
@@ -64,6 +64,9 @@ export default class shareWrap extends Component {
         </TouchableOpacity>
       </View>
     );
+  }
+  _shareToSession(){
+    this.props.shareToSession()
   }
   downloadVideo(fromUrl, toFile){
     const activeDownloads = {};
@@ -215,7 +218,7 @@ const styles = StyleSheet.create({
   },
   list:{
     flex:1,
-    height:40,
+    height:44,
     flexDirection:'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -225,7 +228,7 @@ const styles = StyleSheet.create({
     fontSize:18
   },
   text:{
-    marginTop:8,
+    marginTop:6,
     color:'#c8c6c9',
   },
 

@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-13 10:58:39
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-24 14:16:52
+* @Last Modified time: 2018-04-26 12:03:28
 */
 import React, { Component } from 'react';
 import {
@@ -36,6 +36,7 @@ export default class listItem extends Component {
   	var row=this.state.row
     return (
       <TouchableOpacity style={styles.itemBox} 
+        activeOpacity={1}
         onPress={()=>{
           this._goWatch()
             //ongetVideoInfo({open:false,id:0})}
@@ -53,7 +54,9 @@ export default class listItem extends Component {
           >
             <Text numberOfLines={1} style={styles.duration}>{formatDuring(row.duration)}</Text>
           </Image>
-          <TouchableOpacity onPress={this._goDetailTv.bind(this)} style={styles.iteminfoBox}>
+          <TouchableOpacity 
+            activeOpacity={1}
+            onPress={this._goDetailTv.bind(this)} style={styles.iteminfoBox}>
             <Image 
               style={styles.upImg} 
               source={{uri : imageUrl(row.user.head)}} 

@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconz from 'react-native-vector-icons/MaterialIcons';
+import Icon3 from 'react-native-vector-icons/Feather'
 
 var {height, width} = Dimensions.get('window');
 
@@ -32,12 +33,12 @@ export default class Subs extends Component {
         <View style={styles.container}>
           
           <View style={{flexDirection:'row', alignItems:'center'}}>
-            <Icon name="ios-browsers" style={{margin:10,}} size={20} color="#fff" onPress={this.props.onSelect} />
-            <Text style={{color:'#fff', margin:8, fontWeight:'500', fontSize:17}}>{this.props.name}</Text>
+            <Icon3 name="list" style={{margin:10,}} size={20} color="#fff" onPress={this.props.onSelect} />
+            <Text style={{color:'#fff', margin:8, fontWeight:'500', fontSize:15}}>{this.props.name}</Text>
           </View>
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <TouchableOpacity onPress={this._goSearch.bind(this)}>
-              <Iconz name="search" style={{margin:5}} size={20} color="#fff" />
+              <Icon3 name="search" style={{margin:10}} size={20} color="#fff" />
             </TouchableOpacity>
             {/*<TouchableOpacity>
               <Iconz name="more-vert" style={{margin:5}} size={20} color="#fff" />

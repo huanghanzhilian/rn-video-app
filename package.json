@@ -7,9 +7,11 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"axios": "^0.18.0",
 		"lodash": "^4.17.5",
 		"m3u8-parser": "^4.2.0",
 		"mockjs": "^1.0.1-beta3",
+		"qs": "^6.5.1",
 		"query-string": "^6.0.0",
 		"react": "16.0.0-alpha.6",
 		"react-addons-update": "^15.6.2",

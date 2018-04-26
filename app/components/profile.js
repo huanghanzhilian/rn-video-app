@@ -62,7 +62,7 @@ export default class Profile extends Component {
                 <Icon2
                   name='message'
                   style={styles.dopser_item_icon}
-                  size={24}
+                  size={18}
                 />
               </View>
               <View style={styles.dopser_item_r}>
@@ -71,7 +71,7 @@ export default class Profile extends Component {
                   <Icon2
                     name='chevron-right'
                     style={styles.dopser_item_r_icon}
-                    size={24}
+                    size={18}
                   />
                 </View>
               </View>
@@ -81,7 +81,7 @@ export default class Profile extends Component {
                 <Icon
                   name='thumbs-up'
                   style={styles.dopser_item_icon}
-                  size={24}
+                  size={18}
                 />
               </View>
               <View style={styles.dopser_item_r}>
@@ -90,7 +90,7 @@ export default class Profile extends Component {
                   <Icon2
                     name='chevron-right'
                     style={styles.dopser_item_r_icon}
-                    size={24}
+                    size={18}
                   />
                 </View>
               </View>
@@ -100,7 +100,7 @@ export default class Profile extends Component {
                 <Icon3
                   name='ios-albums-outline'
                   style={styles.dopser_item_icon}
-                  size={24}
+                  size={18}
                 />
               </View>
               <View style={styles.dopser_item_r}>
@@ -109,7 +109,7 @@ export default class Profile extends Component {
                   <Icon2
                     name='chevron-right'
                     style={styles.dopser_item_r_icon}
-                    size={24}
+                    size={18}
                   />
                 </View>
               </View>
@@ -119,7 +119,7 @@ export default class Profile extends Component {
                 <Icon3
                   name='ios-albums-outline'
                   style={styles.dopser_item_icon}
-                  size={24}
+                  size={18}
                 />
               </View>
               <View style={styles.dopser_item_r}>
@@ -128,7 +128,7 @@ export default class Profile extends Component {
                   <Icon2
                     name='chevron-right'
                     style={styles.dopser_item_r_icon}
-                    size={24}
+                    size={18}
                   />
                 </View>
               </View>
@@ -157,7 +157,7 @@ export default class Profile extends Component {
                 <Icon2
                   name='history'
                   style={styles.dopser_item_icon}
-                  size={24}
+                  size={18}
                 />
               </View>
               <View style={styles.dopser_item_r}>
@@ -166,7 +166,7 @@ export default class Profile extends Component {
                   <Icon2
                     name='chevron-right'
                     style={styles.dopser_item_r_icon}
-                    size={24}
+                    size={18}
                   />
                 </View>
               </View>

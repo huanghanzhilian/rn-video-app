@@ -17,6 +17,9 @@ import Toast, {DURATION} from 'react-native-easy-toast'
 import RNFetchBlob from 'react-native-fetch-blob'
 import StaticServer from 'react-native-static-server';
 
+//import * as WeChat from 'react-native-wechat';
+//const wechat = require('react-native-wechat');
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 
@@ -82,6 +85,7 @@ export default class VideoPlayScreen extends Component {
 
   componentDidMount(){
     InteractionManager.runAfterInteractions(()=>{  
+      //WeChat.registerApp('wx03f6c209034fb0f2')
       // var fs=RNFetchBlob.fs
       // var path=RNFetchBlob.fs.dirs.DocumentDir
 
@@ -228,7 +232,7 @@ export default class VideoPlayScreen extends Component {
                 {...this.props} 
                 navigator={navigator} 
                 data={this.state.toPlayInfo} />
-              <ShareWrap data={this.state.toPlayInfo} toast={(text)=>this._toast(text)}/>
+              <ShareWrap data={this.state.toPlayInfo} shareToSession={this._shareToSession.bind(this)} toast={(text)=>this._toast(text)}/>
               <UpInfo 
                 {...this.props} 
                 navigator={this.props.navigator} 
@@ -255,6 +259,10 @@ export default class VideoPlayScreen extends Component {
         </View>*/}
       </View>
     )
+  }
+
+  _shareToSession(){
+    alert(1)
   }
 
   //提示

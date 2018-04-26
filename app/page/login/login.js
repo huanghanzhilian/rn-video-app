@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 14:14:23
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-24 16:46:07
+* @Last Modified time: 2018-04-26 09:58:41
 */
 import React, { Component } from 'react';
 import {
@@ -315,6 +315,7 @@ export default class login extends Component {
       account:account
     })
     .then((data)=>{
+      console.log(data)
       if(data&&data.code==0&&data.data.isExists){
         this.setState({
           userStatus:true

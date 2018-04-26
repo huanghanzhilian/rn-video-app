@@ -131,15 +131,26 @@ class Root extends Component{
     //console.log(this)
     return (
       <View style={{flex:1,backgroundColor:'#212121'}}>
-        {/*<StatusBar 
-         barStyle="light-content"
-        />*/}
+        <StatusBar 
+          backgroundColor="#212121"
+          barStyle="light-content"
+          translucent={true}
+        />
         <NavigationExperimental.Navigator
           ref="toastaa"
           style={{flex: 1}}
           initialRoute={{id: 'splash', name: 'splash'}}
           configureScene={(route) =>{
-            return NavigationExperimental.Navigator.SceneConfigs.FloatFromRight
+            //console.log()
+            let configure = NavigationExperimental.Navigator.SceneConfigs.FloatFromRight;
+            switch (route.name){
+              case 'login':
+                configure = NavigationExperimental.Navigator.SceneConfigs.FloatFromBottom;
+                break;
+              default:
+                configure =  NavigationExperimental.Navigator.SceneConfigs.FloatFromRight;
+            };
+            return {...configure,gestures:{}}
           }} 
           renderScene={this.renderScene.bind(this)}/>
         <Toast 

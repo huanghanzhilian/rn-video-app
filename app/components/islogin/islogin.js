@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-08 13:03:33
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-08 16:05:50
+* @Last Modified time: 2018-04-26 11:34:55
 */
 
 import React, { Component } from 'react';
@@ -13,6 +13,7 @@ import {
   View,
   Dimensions,
   Image,
+  ScrollView
 } from 'react-native';
 import  Button from 'react-native-button'
 
@@ -29,15 +30,19 @@ export default class islogin extends Component {
 
   render() {
     return (
+      <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.container}>
-        <Image source={require('../../images/sign_in_promo-vfluaJRxi.png')} resizeMode="contain" style={styles.img} />
-    		<Text style={styles.loginlog}>
-          您尚未登录
-        </Text>
-        <Button
-        style={styles.loginBtn}
-        onPress={this._loadLodin.bind(this)}>登录</Button>
+        
+          <Image source={require('../../images/sign_in_promo-vfluaJRxi.png')} resizeMode="contain" style={styles.img} />
+      		<Text style={styles.loginlog}>
+            您尚未登录
+          </Text>
+          <Button
+          style={styles.loginBtn}
+          onPress={this._loadLodin.bind(this)}>登录</Button>
+        
       </View>
+      </ScrollView>
     );
   }
 

@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-20 10:52:17
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-20 23:03:12
+* @Last Modified time: 2018-04-26 13:23:43
 */
 'use strict';  
 import React, { Component } from 'react';  
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   mask: {  
     justifyContent:"center",  
     backgroundColor:"#000",  
-    opacity:0.8,  
+    opacity:0.2,  
     position:"absolute",  
     width:width,  
     height:height,  

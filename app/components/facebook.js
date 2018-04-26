@@ -49,7 +49,7 @@ const FacebookTabBar = React.createClass({
         return <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
           <Icon
             name={tab}
-            size={28}
+            size={24}
             color={this.props.activeTab === i ? '#e34849' : '#828282'}
             ref={(icon) => { this.tabIcons[i] = icon; }}
           />
@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     width:width,
   },
   icontxte:{
-    color:'#828282'
+    color:'#828282',
+    fontSize:14
   },
   icontxtea:{
     color:'#e34849'

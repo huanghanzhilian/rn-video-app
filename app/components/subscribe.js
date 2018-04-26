@@ -80,7 +80,7 @@ export default class Subscribe extends Component {
   render() {
     if(this.props.userInfo){
       return (
-        <View style={{flex:1}}>
+        <View style={{flex:1,backgroundColor:'#212121'}}>
           <Nav navigator={this.props.navigator} {...this.props} name="订阅" dark={false} onSelect={()=>this._dialog()} />
           <ListView
             enableEmptySections={true}
@@ -95,8 +95,9 @@ export default class Subscribe extends Component {
               <RefreshControl
                 refreshing={this.state.isRefreshing}//在视图开始刷新时调用
                 onRefresh={this._onRefresh.bind(this)}//刷新
-                tintColor="#ff6600"
+                tintColor="#fff"
                 title="加载中..."
+                titleColor="#fff"
               />
             }
             style={{marginTop:5}}
@@ -219,8 +220,8 @@ export default class Subscribe extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'red'
-    //backgroundColor:'#212121'
+    //backgroundColor:'red'
+    backgroundColor:'#212121'
   },
 
   

@@ -79,11 +79,11 @@ export default class Home extends Component {
   }
   render() {
     return (
-      <View style={{flex:1}}>
+      <View style={{flex:1,backgroundColor:'#212121'}}>
         <Nav 
           navigator={this.props.navigator} 
           {...this.props} 
-          name="Home" 
+          name="首页" 
           dark={false} 
           onSelect={()=>this._dialog()} 
         />
@@ -100,8 +100,9 @@ export default class Home extends Component {
             <RefreshControl
               refreshing={this.state.isRefreshing}//在视图开始刷新时调用
               onRefresh={this._onRefresh.bind(this)}//刷新
-              tintColor="#ff6600"
+              tintColor="#fff"
               title="加载中..."
+              titleColor="#fff"
             />
           }
           style={{marginTop:5}}
@@ -219,8 +220,8 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'red'
-    //backgroundColor:'#212121'
+    //backgroundColor:'red'
+    backgroundColor:'#212121'
   },
 
   
