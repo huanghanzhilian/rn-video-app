@@ -12,7 +12,7 @@ import {
 import NavigationExperimental from 'react-native-deprecated-custom-components';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 import Toast, {DURATION} from 'react-native-easy-toast'
-
+import *as wechat from 'react-native-wechat'
 
 
 import { connect } from 'react-redux';
@@ -69,6 +69,7 @@ class Root extends Component{
 
   //安装过  3
   componentDidMount(){
+    wechat.registerApp('wx03f6c209034fb0f2')
     if (Platform.OS === 'android') {
         
 

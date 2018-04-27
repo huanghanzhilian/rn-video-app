@@ -27,7 +27,7 @@ export default class shareWrap extends Component {
   constructor(props){
     super(props)
     var row=this.props.data
-    console.log(row)
+    //console.log(row)
     this.state={
       row:row,
       isLike:row.isLike,//点赞状态
@@ -93,6 +93,14 @@ export default class shareWrap extends Component {
     return activeDownloads[toFile];
   }
   async _download(){
+    var userInfo=this.props.userInfo||null
+    if(!userInfo){
+      this.props.navigator.push({
+        name:'login',
+        id:'login'
+      })
+      return
+    }
         // var deCodeUrl=decodeURIComponent(url)//解析url 建立对应视频文件夹
     // var pattern=/http:\/\/video.samuredwonder.com\/video\/user\/(\d*)\/(\S*)(.mp4|.mp5){1}/
     // var saveMkdir=deCodeUrl.match(pattern)[2]//得到文件夹名
@@ -166,6 +174,14 @@ export default class shareWrap extends Component {
   }
   //点赞
   _up(){
+    var userInfo=this.props.userInfo||null
+    if(!userInfo){
+      this.props.navigator.push({
+        name:'login',
+        id:'login'
+      })
+      return
+    }
     var isLike=!this.state.isLike
     var row=this.state.row
     var isLike

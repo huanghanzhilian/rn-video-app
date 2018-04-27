@@ -5,19 +5,21 @@ import {View, Dimensions,
   Slider, 
   TouchableWithoutFeedback, 
   TouchableOpacity, 
-  Button, 
+  Alert, 
   StyleSheet,
   InteractionManager,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableHighlight,
 } from 'react-native';
 import Video from 'react-native-video';
+import  Button from 'react-native-button'
 import Orientation from 'react-native-orientation';
 import Toast, {DURATION} from 'react-native-easy-toast'
 import RNFetchBlob from 'react-native-fetch-blob'
 import StaticServer from 'react-native-static-server';
 
-//import * as WeChat from 'react-native-wechat';
+import * as wechat from 'react-native-wechat';
 //const wechat = require('react-native-wechat');
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,6 +32,7 @@ import ShareWrap from './watch/shareWrap';
 import UpInfo from './watch/upInfo';
 import RecommendList from './watch/recommendList';
 const screenWidth = Dimensions.get('window').width;
+const {width, height} = Dimensions.get('window'); 
 
 function formatTime(second) {
   let h = 0, i = 0, s = parseInt(second);
@@ -78,14 +81,18 @@ export default class VideoPlayScreen extends Component {
       videoUri:'',
 
       testimage:'',
-      testVideo:'/Users/macintoshhd/Library/Developer/CoreSimulator/Devices/598B2F69-EEF0-4BAB-8509-1345D0BE81D8/data/Containers/Data/Application/EE9DF030-32BD-4FAE-99E0-48158768EFFC/Documents/videocache/ll.m3u8'
+      testVideo:'/Users/macintoshhd/Library/Developer/CoreSimulator/Devices/598B2F69-EEF0-4BAB-8509-1345D0BE81D8/data/Containers/Data/Application/EE9DF030-32BD-4FAE-99E0-48158768EFFC/Documents/videocache/ll.m3u8',
 
+
+      //分享
+      modalSharingStatue:false,
     };
   }
 
   componentDidMount(){
     InteractionManager.runAfterInteractions(()=>{  
-      //WeChat.registerApp('wx03f6c209034fb0f2')
+      wechat.registerApp('wx03f6c209034fb0f2')
+      //wechat.registerAppWithDescription('wx03f6c209034fb0f2')
       // var fs=RNFetchBlob.fs
       // var path=RNFetchBlob.fs.dirs.DocumentDir
 
@@ -117,8 +124,8 @@ export default class VideoPlayScreen extends Component {
             ?<View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
               <Video
                 ref={(ref) => this.videoPlayer = ref}
-                //source={{uri: this.state.videoUri}}
-                source={{uri: this.state.videoUrl}}
+                source={{uri: this.state.videoUri}}
+                //source={{uri: this.state.videoUrl}}
                 rate={1.0}
                 volume={1.0}
                 muted={false}
@@ -232,7 +239,7 @@ export default class VideoPlayScreen extends Component {
                 {...this.props} 
                 navigator={navigator} 
                 data={this.state.toPlayInfo} />
-              <ShareWrap data={this.state.toPlayInfo} shareToSession={this._shareToSession.bind(this)} toast={(text)=>this._toast(text)}/>
+              <ShareWrap {...this.props}  data={this.state.toPlayInfo} shareToSession={this._shareToSession.bind(this)} toast={(text)=>this._toast(text)}/>
               <UpInfo 
                 {...this.props} 
                 navigator={this.props.navigator} 
@@ -252,6 +259,40 @@ export default class VideoPlayScreen extends Component {
           ref="toast"
           position='center'
         />
+        {
+          this.state.modalSharingStatue
+          ?<TouchableHighlight style={styles.screen_cover} onPress={this._closeSharing.bind(this)}>  
+            <Text></Text>
+          </TouchableHighlight> 
+          :null
+        }
+        {
+          this.state.modalSharingStatue
+          ?<View style={styles.sharingBox} >
+            <Text style={styles.sharingTitle} >分享到</Text>
+            <View style={styles.sharingWrap} >
+              <TouchableOpacity onPress={this._doSharing.bind(this,'weixin')} style={styles.sharingItem} >
+                <Image 
+                  source={require('../images/icons/weixin.png')} 
+                  resizeMode="stretch" 
+                  style={styles.sharingImg}
+                />
+                <Text style={styles.sharingText}>微信</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this._doSharing.bind(this,'pengyou')} style={styles.sharingItem} >
+                <Image 
+                  source={require('../images/icons/pengyouquan.png')} 
+                  resizeMode="stretch" 
+                  style={styles.sharingImg}
+                />
+                <Text style={styles.sharingText}>朋友圈</Text>
+              </TouchableOpacity>
+            </View>  
+            <Button onPress={this._closeSharing.bind(this)} style={styles.sharingClose}>取消</Button>  
+          </View>
+          :null
+        }
+          
         {/*<View style={{flex: 1, alignItems:'center', justifyContent:'center'}}>
           <Button title={'开始播放'} onPress={() => {this.playVideo()}}/>
           <Button title={'暂停播放'} onPress={() => {this.pauseVideo()}}/>
@@ -260,9 +301,61 @@ export default class VideoPlayScreen extends Component {
       </View>
     )
   }
+  //分享
+  _doSharing(name){
+    var toPlayInfo=this.state.toPlayInfo
+    this._closeSharing()
+    if(name=='weixin'){
+      wechat.isWXAppInstalled()
+      .then((isInstalled) => {
+        if(isInstalled) {
+          //分享到微信好友
+          wechat.shareToSession({
+            type: 'news',
+            title: toPlayInfo.name, // WeChat app treat title as file name
+            description: toPlayInfo.summary||'samuredwonder平台，快来订阅吧',
+            webpageUrl:'http://m.samuredwonder.com/watch?videoId='+toPlayInfo.id,
+            thumbImage:'http://static.samuredwonder.com/'+toPlayInfo.cover
+          })
+        }else{
+          Alert.alert('提示','没有安装微信软件，请您安装微信之后再试',[
+            {text: '确定', onPress: () => console.log('OK Pressed!')},
+          ])
+        }
+      })
+    }else if(name=='pengyou'){
+      wechat.isWXAppInstalled()
+      .then((isInstalled) => {
+        if(isInstalled) {
+          //分享到微信朋友圈
+          wechat.shareToTimeline({
+            type: 'news',
+            title: toPlayInfo.name, // WeChat app treat title as file name
+            description: toPlayInfo.summary||'samuredwonder平台，快来订阅吧',
+            webpageUrl:'http://m.samuredwonder.com/watch?videoId='+toPlayInfo.id,
+            thumbImage:'http://static.samuredwonder.com/'+toPlayInfo.cover
+          });
+        }else{
+          Alert.alert('提示','没有安装微信软件，请您安装微信之后再试',[
+            {text: '确定', onPress: () => console.log('OK Pressed!')},
+          ])
+        }
+      })
+    }
+  }
+  _closeSharing(){
+    this.setState({
+      modalSharingStatue:false
+    })
+  }
+  _openSharing(){
+    this.setState({
+      modalSharingStatue:true
+    })
+  }
 
   _shareToSession(){
-    alert(1)
+    this._openSharing()
   }
 
   //提示
@@ -641,4 +734,58 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     backgroundColor:'transparent'
   },
+
+  /*分享对话框*/
+  screen_cover:{
+    backgroundColor:"#000",  
+    opacity:0.2,  
+    position:"absolute",  
+    width:width,  
+    height:height,  
+    left:0,  
+    top:0, 
+  },
+  sharingBox:{
+    backgroundColor:'#212121',
+    position:"absolute",  
+    width:width,  
+    //height:300,  
+    left:0,  
+    bottom:0, 
+  },
+  sharingTitle:{
+    height:40,
+    lineHeight:40,
+    textAlign:'center',
+    color:'#c8c6c9',
+  },
+  sharingWrap:{
+    flexDirection:'row',
+    //backgroundColor:'red',
+    padding:10,
+    borderBottomWidth:1,
+    borderColor:'#383838',
+  },
+  sharingItem:{
+    //justifyContent: 'center',
+    alignItems: 'center',
+    marginRight:10
+  },
+  sharingImg:{
+    width:60,
+    height:60
+  },
+  sharingText:{
+    marginTop:10,
+    color:'#868486',
+    fontSize:12
+  },
+  sharingClose:{
+    height:40,
+    lineHeight:40,
+    textAlign:'center',
+    color:'#c8c6c9',
+    //backgroundColor:'red'
+  }
+  /*分享对话框*/
 });

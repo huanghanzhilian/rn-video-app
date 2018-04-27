@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-wechat')    // Add this line only.
     compile project(':react-native-static-server')
     compile project(':react-native-wechat')
     compile project(':react-native-fetch-blob')
