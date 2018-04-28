@@ -41,6 +41,8 @@ import Movie from "../page/movie/movie"
 import Drama from "../page/drama/drama"
 import Recharge from "../page/recharge/recharge"
 
+import Testvideo2 from "./testVideo"
+
 
 
 
@@ -303,6 +305,15 @@ class Root extends Component{
     if (routeId === 'recharge') {
       return (
         <Recharge
+        {...this.props} 
+        {...route.params}
+        navigator={navigator} />
+      );
+    }
+
+    if (routeId === 'testvideo2') {
+      return (
+        <Testvideo2
         {...this.props} 
         {...route.params}
         navigator={navigator} />

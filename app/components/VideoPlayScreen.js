@@ -13,6 +13,7 @@ import {View, Dimensions,
   TouchableHighlight,
 } from 'react-native';
 import Video from 'react-native-video';
+
 import  Button from 'react-native-button'
 import Orientation from 'react-native-orientation';
 import Toast, {DURATION} from 'react-native-easy-toast'
@@ -58,7 +59,7 @@ export default class VideoPlayScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoUrl: "http://124.129.157.208:8810/SD/2017qingdao/xiaoxueEnglish/grade3/b/1.mp4",
+      videoUrl: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
       videoCover: "http://124.129.157.208:8889/data/uploads/kecheng/2018/01/18/5a600b2c99836.png@0o_0l_220w.png",
       videoWidth: screenWidth,
       videoHeight: screenWidth * 9/16, // 默认16：9的宽高比
@@ -124,8 +125,8 @@ export default class VideoPlayScreen extends Component {
             ?<View style={{ width: this.state.videoWidth, height: this.state.videoHeight, backgroundColor:'#000000' }}>
               <Video
                 ref={(ref) => this.videoPlayer = ref}
-                source={{uri: this.state.videoUri}}
-                //source={{uri: this.state.videoUrl}}
+                //source={{uri: this.state.videoUri}}
+                source={{uri: this.state.videoUrl}}
                 rate={1.0}
                 volume={1.0}
                 muted={false}

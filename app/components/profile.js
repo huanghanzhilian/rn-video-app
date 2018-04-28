@@ -114,7 +114,7 @@ export default class Profile extends Component {
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>this._goPage('testvideo')} style={styles.dopser_item}>
+            <TouchableOpacity onPress={()=>this._goPage('testvideo2')} style={styles.dopser_item}>
               <View style={styles.dopser_item_l}>
                 <Icon3
                   name='ios-albums-outline'

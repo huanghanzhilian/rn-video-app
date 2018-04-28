@@ -18,3 +18,16 @@
 
 次
 #383838
+
+
+
+###vtt to json
+```
+current = {
+	// start: timeString2ms(line.split("-->")[0].trimRight().split(" ").pop()),
+	// end: timeString2ms(line.split("-->")[1].trimLeft().split(" ").shift()),
+	startTime: line.split("-->")[0],
+	endTime: line.split("-->")[1],
+	part: ''
+}
+```

@@ -11,13 +11,34 @@ import qs from 'qs'
 var request={}
 
 
-request.get=function(url,params){
+request.get=function(url,params,type){
 	if(params){
 		url+='?'+queryString.stringify(params)
 	}
+
 	return fetch(url)
 		.then((response) => response.json())
 		.then((response) => Mock.mock(response))
+}
+
+
+request.XMLget=function(url){
+	return new Promise(function(resolve,reject){
+  	var request = new XMLHttpRequest();
+		request.onreadystatechange = (e) => {
+		  if (request.readyState !== 4) {
+		    return;
+		  }
+		  if (request.status === 200) {
+		  	resolve(request.responseText)
+		  } else {
+		    reject(request.responseText)
+		  }
+		};
+		request.open('GET', url);
+		request.send(); 
+  })
+
 }
 
   
