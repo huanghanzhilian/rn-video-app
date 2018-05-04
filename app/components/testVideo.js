@@ -2,7 +2,7 @@
 * @Author: huanghanzhilian
 * @Date:   2018-04-28 10:07:47
 * @Last Modified by:   huanghanzhilian
-* @Last Modified time: 2018-04-28 17:59:00
+* @Last Modified time: 2018-05-03 18:50:54
 */
 import React, { Component } from 'react';
 import {
@@ -38,6 +38,12 @@ export default class topTitle extends Component {
          "endTime": "00:00:09,876",
          "part": "Before passing it to the VidePlayer component"
       }],
+
+
+
+      isFullScreen:false,
+      videoWidth: width,
+      videoHeight: width * 9/16, // 默认16：9的宽高比
     }
   }
   componentDidMount(){
@@ -49,28 +55,51 @@ export default class topTitle extends Component {
           this.setState({
             subtitle:result
           })
-          console.log(result)
+          //console.log(result)
         })
       })
     })
   }
   render() {
-    console.log(VideoPlayer)
     return (
       <View style={styles.container}>
-      	<Head title='视频字幕测试' navigator={this.props.navigator} />
-        <View style={styles.VideoPlayerstyles}>
+      	{/*<Head title='视频字幕测试' navigator={this.props.navigator} />*/}
+        <View style={{width: this.state.videoWidth,height: this.state.videoHeight,backgroundColor:'#000000',paddingTop:15}}>
           <VideoPlayer
-              style={styles.VideoPlayerstyles}
+              style={{width: this.state.videoWidth,height: this.state.videoHeight,backgroundColor:'#000000',paddingTop:15}}
               source={{ uri: this.state.videoUrl}}
               navigator={ this.props.navigator }
+              onFullStatus={(status)=>this._fullStatus(status)} 
               //toggleFullscreen={YourCustomizedFunction}
               subtitle={this.state.subtitle}
+              isSubtitle={true}
+              isFullScreen={this.state.isFullScreen}
+              videoTitle='这是视频的标题这是视频'//标题
           /> 
         </View>
            
       </View>
     )
+  }
+  componentWillUnmount() {
+    //_isMounted=false
+    this.setState = () => {};
+  }
+  _fullStatus(status){
+    var {height, width} = Dimensions.get('window');
+
+    let state = this.state;
+    if(status){
+      state.videoWidth=width;
+      state.videoHeight=height;
+      state.isFullScreen = true;
+    }else{
+      state.videoWidth=width;
+      state.videoHeight=width * 9/16;
+      state.isFullScreen = false;
+    }
+    //console.log(this)
+    this.setState(state);
   }
 
 
